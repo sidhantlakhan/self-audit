@@ -3,10 +3,19 @@ import { chromium, type Browser } from "playwright-core";
 
 let browser: Promise<Browser> | null = null;
 
+/**
+ * Local and container hosts use the Chromium at CHROMIUM_EXECUTABLE_PATH.
+ * On Vercel (no such binary) the serverless build from @sparticuz/chromium is used.
+ */
+async function start(): Promise<Browser> {
+  const local = process.env.CHROMIUM_EXECUTABLE_PATH;
+  if (local) return chromium.launch({ executablePath: local, args: ["--no-sandbox", "--font-render-hinting=none"] });
+  const serverless = (await import("@sparticuz/chromium")).default;
+  return chromium.launch({ executablePath: await serverless.executablePath(), args: serverless.args });
+}
+
 function launch(): Promise<Browser> {
-  const executablePath = process.env.CHROMIUM_EXECUTABLE_PATH;
-  if (!executablePath) throw new Error("CHROMIUM_EXECUTABLE_PATH is not set, so PDFs cannot be rendered.");
-  browser ??= chromium.launch({ executablePath, args: ["--no-sandbox", "--font-render-hinting=none"] }).catch((err) => {
+  browser ??= start().catch((err) => {
     browser = null;
     throw err;
   });
@@ -15,7 +24,8 @@ function launch(): Promise<Browser> {
 
 /** The public base URL of this app, used by background jobs and PDF rendering. */
 export function appUrl(fallbackOrigin?: string): string {
-  return (process.env.APP_URL || fallbackOrigin || "http://localhost:3000").replace(/\/$/, "");
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return (process.env.APP_URL || fallbackOrigin || vercel || "http://localhost:3000").replace(/\/$/, "");
 }
 
 /** Renders one of the app's print pages (two A4 pages) to a PDF. */

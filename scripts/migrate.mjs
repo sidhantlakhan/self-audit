@@ -4,6 +4,11 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import pg from "pg";
 
+if (!process.env.DATABASE_URL) {
+  console.error("DATABASE_URL is not set; cannot run migrations.");
+  process.exit(1);
+}
+
 const dir = path.resolve(import.meta.dirname, "../migrations");
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
 await client.connect();

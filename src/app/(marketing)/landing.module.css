@@ -11,8 +11,6 @@
 .nav { display: flex; gap: 26px; margin-left: 18px; flex: 1 1 auto; white-space: nowrap; }
 .nav a { font-size: 14px; font-weight: 600; color: var(--line); }
 .nav a:hover { color: var(--amber); text-decoration: none; }
-.login { font-size: 14px; font-weight: 700; color: #FFFAF3; padding: 10px 6px; white-space: nowrap; }
-.login:hover { color: var(--amber); text-decoration: none; }
 .barBtn { flex: none; min-height: 44px; padding: 0 18px; font-size: 14px; transition: all .2s; }
 .barBtnStuck { background: var(--amber); color: var(--charcoal); box-shadow: 0 0 0 4px rgba(245, 160, 32, 0.28); }
 .barBtnStuck:hover { background: var(--amber); color: var(--charcoal); }
@@ -119,7 +117,6 @@
   .bar { padding: 0 18px; height: 60px; gap: 10px; }
   .nav, .barBtn { display: none; }
   .spacer { display: block; flex: 1 1 auto; }
-  .login { min-height: 44px; display: flex; align-items: center; padding: 0 4px; }
   .menuBtn { display: flex; }
   .mobileMenu { display: flex; flex-direction: column; background: var(--charcoal); padding: 6px 18px 16px; border-bottom: 1px solid var(--charcoal-line); position: sticky; top: 60px; z-index: 29; }
   .mobileMenu a { min-height: 48px; display: flex; align-items: center; font-size: 15px; font-weight: 700; color: #FFFAF3; }

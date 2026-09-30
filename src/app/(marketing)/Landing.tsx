@@ -94,7 +94,6 @@ export function Landing() {
           <a href="#faq">FAQ</a>
         </nav>
         <span className={s.spacer} />
-        <Link href="/login" className={s.login}>Log in</Link>
         <Link href="/scorecard" className={`btn btn-primary ${s.barBtn} ${stuck ? s.barBtnStuck : ""}`}>Check my AI-readiness — free</Link>
         <button type="button" className={s.menuBtn} aria-label="Menu" aria-expanded={menu} onClick={() => setMenu(!menu)}>
           <Menu />
