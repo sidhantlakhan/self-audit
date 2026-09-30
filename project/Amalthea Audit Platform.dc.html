@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#FFFAF3;font-family:Mulish,sans-serif;color:#241B14;-webkit-font-smoothing:antialiased}
+  *{box-sizing:border-box}
+  a{color:#D04800;text-decoration:none}
+  a:hover{color:#C24000;text-decoration:underline}
+  button{font-family:Mulish,sans-serif}
+  :focus-visible{outline:3px solid #E8650A;outline-offset:2px}
+  @keyframes am-spin{to{transform:rotate(360deg)}}
+  @keyframes am-pulse{0%,100%{opacity:.35}50%{opacity:.9}}
+</style>
+</helmet>
+
+<div style="display:flex;align-items:stretch;min-height:100vh;background:#FFFAF3">
+
+  <aside style="flex:0 0 268px;width:268px;background:#FFFFFF;border-right:1px solid #EADBC8;padding:0 0 32px;position:sticky;top:0;align-self:flex-start;max-height:100vh;overflow-y:auto">
+    <div style="padding:20px 20px 16px;border-bottom:1px solid #EADBC8;display:flex;align-items:center;gap:10px">
+      <svg width="26" height="26" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+      <div>
+        <div style="font-size:14px;font-weight:800;letter-spacing:-0.01em;color:#241B14;line-height:1.2">Amalthea</div>
+        <div style="font-size:10.5px;font-weight:600;color:#6B5A4D;letter-spacing:0.06em;text-transform:uppercase">AI-Ready Audit</div>
+      </div>
+    </div>
+
+    <div style="padding:18px 14px 6px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;padding:0 8px 8px">Stage 0 · Foundations</div>
+      <nav style="display:flex;flex-direction:column;gap:2px">
+        <button type="button" onClick="{{ go.S01 }}" style="{{ navStyle.S01 }}">
+          <span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">S0.1</span>
+          <span>Style Guide</span>
+        </button>
+        <button type="button" onClick="{{ go.S02 }}" style="{{ navStyle.S02 }}">
+          <span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">S0.2</span>
+          <span>Sitemap &amp; Roles</span>
+        </button>
+        <button type="button" onClick="{{ go.S03 }}" style="{{ navStyle.S03 }}">
+          <span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">S0.3</span>
+          <span>Founder Workspace Shell</span>
+        </button>
+        <button type="button" onClick="{{ go.S04 }}" style="{{ navStyle.S04 }}">
+          <span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">S0.4</span>
+          <span>Consultant Console Shell</span>
+        </button>
+      </nav>
+    </div>
+
+    <div style="padding:4px 14px 6px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;padding:0 8px 8px">Stage 1 · Landing</div>
+      <button type="button" onClick="{{ go.S11 }}" style="{{ navStyle.S11 }}">
+        <span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">S1.1</span>
+        <span>Landing page</span>
+      </button>
+    </div>
+    <div style="padding:4px 14px 6px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;padding:0 8px 8px">Stage 2 · Scorecard</div>
+      <nav style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ s2nav }}" as="n" hint-placeholder-count="16"><button type="button" onClick="{{ n.go }}" style="{{ n.style }}"><span style="font-size:10px;font-weight:800;color:#C24000;min-width:32px;text-align:left">{{ n.id }}</span><span>{{ n.label }}</span></button></sc-for>
+      </nav>
+    </div>
+    <div style="padding:18px 22px 0;margin-top:14px;border-top:1px solid #EADBC8">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;padding:14px 0 10px">Stages 1–12</div>
+      <div style="font-size:11.5px;line-height:1.75;color:#6B5A4D">Landing &amp; Scorecard · Onboarding · Founder Load · Health Scan · Process Walk · Data Pack · AI Opportunities · Report · Roadmap · Consultant Review · PM &amp; Admin</div>
+      <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px dashed #EADBC8;border-radius:999px;font-size:10.5px;font-weight:700;color:#6B5A4D">Awaiting Prompt 1</div>
+    </div>
+  </aside>
+
+  <main style="flex:1 1 0;min-width:0;display:flex;flex-direction:column">
+
+    <header style="position:sticky;top:0;z-index:40;background:#FFFAF3;border-bottom:1px solid #EADBC8;padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="flex:1 1 320px;min-width:0">
+        <div style="font-size:16px;font-weight:800;letter-spacing:-0.01em;color:#241B14">{{ screenTitle }}</div>
+        <div style="font-size:12px;font-weight:400;color:#6B5A4D;margin-top:2px">{{ screenPurpose }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:999px;font-size:11px;font-weight:700;color:#6B5A4D">Desktop 1440</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#FDF4E3;border:1px solid #F5A020;border-radius:999px;font-size:11px;font-weight:700;color:#B7791F">Illustrative example</span>
+      </div>
+    </header>
+
+    <div style="flex:1 1 auto;padding:28px 28px 80px;max-width:1440px;width:100%">
+
+      <sc-if value="{{ isS01 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <section style="background:#15120D;border-radius:14px;padding:30px 32px;color:#FFFAF3">
+          <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end">
+            <div style="flex:1 1 420px;min-width:0">
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F5A020">Design System v1</div>
+              <h1 style="margin:10px 0 0;font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-0.025em;color:#FFFAF3;text-wrap:pretty">Calm, direct, practical.</h1>
+              <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#EADBC8;max-width:52ch;text-wrap:pretty">Most AI courses teach tools. We make your business ready for them — then put them to work.</p>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle><circle cx="10" cy="10" r="8.5" fill="#F5A020"></circle></svg>
+              <svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg>
+              <svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+              <svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z" fill="#F5A020"></path></svg>
+              <svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle></svg>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">01 · Colour tokens</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Palette</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px">
+            <div><div style="height:66px;border-radius:10px;background:#F5A020;border:1px solid #EADBC8"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Amber</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#F5A020 · fills</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#E8650A"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Orange</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#E8650A · buttons</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#D04800"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Mid</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#D04800 · hover, links</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#C24000"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Deep</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#C24000 · orange text</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#15120D"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Charcoal</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#15120D · hero only</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#241B14"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Ink</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#241B14 · body text</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#FFFAF3;border:1px solid #EADBC8"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Warm white</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#FFFAF3 · app bg</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#FFFFFF;border:1px solid #EADBC8"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Card</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#FFFFFF</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#EADBC8"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Line</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#EADBC8 · borders</div></div>
+            <div><div style="height:66px;border-radius:10px;background:#6B5A4D"></div><div style="margin-top:8px;font-size:12.5px;font-weight:700;color:#241B14">Muted</div><div style="font-size:11px;color:#6B5A4D;font-weight:600">#6B5A4D · secondary</div></div>
+          </div>
+
+          <div style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+            <div style="border:1px solid #EADBC8;border-radius:10px;overflow:hidden">
+              <div style="background:#C62828;height:42px"></div>
+              <div style="background:#FADBD8;padding:10px 12px;font-size:11.5px;font-weight:700;color:#C62828">Red #C62828 · tint #FADBD8</div>
+            </div>
+            <div style="border:1px solid #EADBC8;border-radius:10px;overflow:hidden">
+              <div style="background:#B7791F;height:42px"></div>
+              <div style="background:#FDF4E3;padding:10px 12px;font-size:11.5px;font-weight:700;color:#B7791F">Amber #B7791F · tint #FDF4E3</div>
+            </div>
+            <div style="border:1px solid #EADBC8;border-radius:10px;overflow:hidden">
+              <div style="background:#2E7D32;height:42px"></div>
+              <div style="background:#EAF4EB;padding:10px 12px;font-size:11.5px;font-weight:700;color:#2E7D32">Green #2E7D32 · tint #EAF4EB</div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">02 · Typography</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Mulish only · 400 / 600 / 700 / 800</h2>
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:14px 24px;align-items:baseline">
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">Display 40/800</div><div style="font-size:40px;font-weight:800;letter-spacing:-0.025em;line-height:1.1;color:#241B14">Your business, AI-ready</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">H1 30/800</div><div style="font-size:30px;font-weight:800;letter-spacing:-0.02em;color:#241B14">Health Scan results</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">H2 22/800</div><div style="font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Purchase and Inventory</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">H3 17/700</div><div style="font-size:17px;font-weight:700;color:#241B14">Quotation approval takes 18 hours</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">Body 15/400</div><div style="font-size:15px;line-height:1.6;color:#241B14;max-width:62ch;text-wrap:pretty">Every score of 2 or more needs evidence — a document, report, photo or meeting note. Without evidence the score is capped at 1.</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">Small 13/400</div><div style="font-size:13px;line-height:1.55;color:#6B5A4D;max-width:62ch">Scores are calculated by fixed rules. AI only writes the explanations and recommendations.</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">Label 11/800</div><div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Founder load</div>
+            <div style="font-size:11px;font-weight:700;color:#6B5A4D">Numeral 34/800</div><div style="font-size:34px;font-weight:800;letter-spacing:-0.02em;color:#C24000;font-variant-numeric:tabular-nums">₹4.2 crore · ₹22 lakh · ₹1,50,000</div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">03 · Moon-phase motif</div>
+          <h2 style="margin:8px 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Outlined circle, pie fill</h2>
+          <p style="margin:0 0 20px;font-size:13.5px;line-height:1.6;color:#6B5A4D;max-width:70ch">Used for score bands, progress and journey stages. Keep it subtle — one motif per view, never as decoration.</p>
+          <div style="display:flex;gap:26px;flex-wrap:wrap">
+            <div style="text-align:center"><svg width="40" height="40" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.2"></circle></svg><div style="font-size:11px;font-weight:700;color:#6B5A4D;margin-top:4px">New · 0%</div></div>
+            <div style="text-align:center"><svg width="40" height="40" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z" fill="#F5A020"></path></svg><div style="font-size:11px;font-weight:700;color:#6B5A4D;margin-top:4px">Crescent · 25%</div></div>
+            <div style="text-align:center"><svg width="40" height="40" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><div style="font-size:11px;font-weight:700;color:#6B5A4D;margin-top:4px">Half · 50%</div></div>
+            <div style="text-align:center"><svg width="40" height="40" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg><div style="font-size:11px;font-weight:700;color:#6B5A4D;margin-top:4px">Three-quarter · 75%</div></div>
+            <div style="text-align:center"><svg width="40" height="40" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="#F5A020" stroke="#C24000" stroke-width="1.2"></circle></svg><div style="font-size:11px;font-weight:700;color:#6B5A4D;margin-top:4px">Full · 100%</div></div>
+          </div>
+          <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+            <div style="display:inline-flex;align-items:center;gap:9px;padding:8px 14px;background:#FADBD8;border:1px solid #C62828;border-radius:999px"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C62828" stroke-width="1.6"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z" fill="#C62828"></path></svg><span style="font-size:12.5px;font-weight:800;color:#C62828">0–40 Foundation first</span></div>
+            <div style="display:inline-flex;align-items:center;gap:9px;padding:8px 14px;background:#FDF4E3;border:1px solid #B7791F;border-radius:999px"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#B7791F" stroke-width="1.6"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#B7791F"></path></svg><span style="font-size:12.5px;font-weight:800;color:#B7791F">41–70 Getting ready</span></div>
+            <div style="display:inline-flex;align-items:center;gap:9px;padding:8px 14px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:999px"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="#2E7D32" stroke="#2E7D32" stroke-width="1.6"></circle></svg><span style="font-size:12.5px;font-weight:800;color:#2E7D32">71–100 AI-ready</span></div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">04 · Buttons</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Actions</h2>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            <button type="button" style="padding:12px 20px;min-height:44px;background:#E8650A;color:#FFFFFF;border:1px solid #E8650A;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#D04800;border-color:#D04800">Start my Scorecard</button>
+            <button type="button" style="padding:12px 20px;min-height:44px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3;border-color:#D04800;color:#C24000">Save and exit</button>
+            <button type="button" style="padding:12px 16px;min-height:44px;background:transparent;color:#C24000;border:1px solid transparent;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">Skip this section</button>
+            <button type="button" style="padding:12px 20px;min-height:44px;background:#FFFFFF;color:#C62828;border:1.5px solid #C62828;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#FADBD8">Delete audit round</button>
+            <button type="button" disabled="true" style="padding:12px 20px;min-height:44px;background:#EADBC8;color:#6B5A4D;border:1px solid #EADBC8;border-radius:9px;font-size:14px;font-weight:700;cursor:not-allowed">Submit for review</button>
+          </div>
+          <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            <button type="button" style="padding:8px 14px;min-height:36px;background:#E8650A;color:#FFFFFF;border:none;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#D04800">Small primary</button>
+            <button type="button" style="padding:14px 26px;min-height:52px;background:#E8650A;color:#FFFFFF;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;width:100%;max-width:340px" style-hover="background:#D04800">Large / mobile full-width</button>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">05 · Form controls</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Inputs, ratings, toggles</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+            <div>
+              <label style="display:block;font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:6px">Business name</label>
+              <input type="text" value="Kavya Industrial Supplies" style="width:100%;min-height:44px;padding:11px 13px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:9px;font-size:14px;font-family:Mulish,sans-serif;color:#241B14">
+              <div style="font-size:11.5px;color:#6B5A4D;margin-top:5px">As it appears on your GST registration.</div>
+            </div>
+            <div>
+              <label style="display:block;font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:6px">Annual turnover</label>
+              <select style="width:100%;min-height:44px;padding:11px 13px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:9px;font-size:14px;font-family:Mulish,sans-serif;color:#241B14">
+                <option>₹1 crore – ₹5 crore</option>
+                <option>₹5 crore – ₹10 crore</option>
+                <option>₹10 crore – ₹25 crore</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:6px">Turnover (error state)</label>
+              <input type="text" value="42000000000" style="width:100%;min-height:44px;padding:11px 13px;background:#FFFFFF;border:1.5px solid #C62828;border-radius:9px;font-size:14px;font-family:Mulish,sans-serif;color:#241B14">
+              <div style="font-size:11.5px;font-weight:700;color:#C62828;margin-top:5px">Enter a figure between ₹1 crore and ₹25 crore.</div>
+            </div>
+            <div>
+              <label style="display:block;font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:6px">Notes for the consultant</label>
+              <textarea style="width:100%;min-height:92px;padding:11px 13px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:9px;font-size:14px;font-family:Mulish,sans-serif;color:#241B14;resize:vertical">Discounts are approved by me on WhatsApp. No written rule yet.</textarea>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;padding-top:24px;border-top:1px solid #EADBC8">
+            <div style="font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:4px">Maturity rating · 0–4 with level descriptors</div>
+            <div style="font-size:11.5px;color:#6B5A4D;margin-bottom:12px">Sales × Process — how well documented is your quotation flow?</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="button" onClick="{{ setScore.s0 }}" style="{{ chip.s0 }}"><span style="font-size:20px;font-weight:800;line-height:1">0</span><span style="font-size:11px;font-weight:700">Absent</span></button>
+              <button type="button" onClick="{{ setScore.s1 }}" style="{{ chip.s1 }}"><span style="font-size:20px;font-weight:800;line-height:1">1</span><span style="font-size:11px;font-weight:700">Founder-dependent</span></button>
+              <button type="button" onClick="{{ setScore.s2 }}" style="{{ chip.s2 }}"><span style="font-size:20px;font-weight:800;line-height:1">2</span><span style="font-size:11px;font-weight:700">Informal</span></button>
+              <button type="button" onClick="{{ setScore.s3 }}" style="{{ chip.s3 }}"><span style="font-size:20px;font-weight:800;line-height:1">3</span><span style="font-size:11px;font-weight:700">Defined</span></button>
+              <button type="button" onClick="{{ setScore.s4 }}" style="{{ chip.s4 }}"><span style="font-size:20px;font-weight:800;line-height:1">4</span><span style="font-size:11px;font-weight:700">Managed</span></button>
+            </div>
+            <div style="margin-top:12px;display:flex;align-items:flex-start;gap:8px;padding:10px 13px;background:#FDF4E3;border:1px solid #F5A020;border-radius:9px;max-width:600px">
+              <svg width="16" height="16" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#B7791F" stroke-width="1.5"></circle><path d="M8 4.5v4.2M8 11.2v.1" stroke="#B7791F" stroke-width="1.6" stroke-linecap="round"></path></svg>
+              <div style="font-size:12px;line-height:1.5;color:#B7791F;font-weight:600">{{ evidenceNote }}</div>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;padding-top:24px;border-top:1px solid #EADBC8;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px">
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:10px">Yes / no toggle</div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <button type="button" onClick="{{ toggleYn }}" role="switch" aria-checked="{{ yn }}" style="{{ ynTrack }}"><span style="{{ ynKnob }}"></span></button>
+                <span style="font-size:13.5px;font-weight:700;color:#241B14">{{ ynLabel }}</span>
+              </div>
+              <div style="font-size:11.5px;color:#6B5A4D;margin-top:8px">Do you have a written AI usage policy?</div>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:#241B14;margin-bottom:10px">Autosave state</div>
+              <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:999px">
+                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span style="font-size:12px;font-weight:700;color:#2E7D32">Saved · 2 minutes ago</span>
+              </div>
+              <div style="font-size:11.5px;color:#6B5A4D;margin-top:8px">Every form autosaves. You can close this and resume later.</div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">06 · Evidence capture</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Uploader, evidence chips, voice note</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px">
+            <div>
+              <div style="border:1.5px dashed #F5A020;border-radius:12px;background:#FFFAF3;padding:26px 20px;text-align:center">
+                <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" style="margin-bottom:8px"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="#C24000" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <div style="font-size:14px;font-weight:700;color:#241B14">Drop your data pack here</div>
+                <div style="font-size:12px;color:#6B5A4D;margin-top:4px">Tally export, price list, sample invoice · PDF, XLSX, JPG up to 25 MB</div>
+                <button type="button" style="margin-top:14px;padding:10px 18px;min-height:44px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">Choose files</button>
+              </div>
+              <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #EADBC8;border-radius:9px;background:#FFFFFF">
+                  <span style="flex:none;font-size:9.5px;font-weight:800;color:#FFFFFF;background:#C62828;padding:3px 5px;border-radius:4px">PDF</span>
+                  <span style="flex:1 1 0;min-width:0;font-size:12.5px;font-weight:600;color:#241B14;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Sample invoice — KIS-2451.pdf</span>
+                  <span style="font-size:11px;font-weight:700;color:#2E7D32">Uploaded</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #EADBC8;border-radius:9px;background:#FFFFFF">
+                  <span style="flex:none;font-size:9.5px;font-weight:800;color:#FFFFFF;background:#2E7D32;padding:3px 5px;border-radius:4px">XLS</span>
+                  <span style="flex:1 1 0;min-width:0;font-size:12.5px;font-weight:600;color:#241B14;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Tally debtors ageing — Aug.xlsx</span>
+                  <div style="flex:none;width:72px;height:6px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="width:64%;height:100%;background:#E8650A"></div></div>
+                </div>
+              </div>
+              <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:7px;font-size:11.5px;font-weight:700;color:#2E7D32">Evidence · Invoice sample</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:7px;font-size:11.5px;font-weight:700;color:#2E7D32">Evidence · Warehouse photo</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#FADBD8;border:1px solid #C62828;border-radius:7px;font-size:11.5px;font-weight:700;color:#C62828">No evidence · score capped at 1</span>
+              </div>
+            </div>
+
+            <div>
+              <div style="border:1px solid #EADBC8;border-radius:12px;background:#FFFFFF;padding:18px">
+                <div style="display:flex;align-items:center;gap:14px">
+                  <button type="button" onClick="{{ toggleRec }}" style="{{ recBtn }}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"></rect><path d="M6 11a6 6 0 0012 0M12 17v4" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round"></path></svg>
+                  </button>
+                  <div style="flex:1 1 0;min-width:0">
+                    <div style="font-size:13.5px;font-weight:700;color:#241B14">{{ recLabel }}</div>
+                    <div style="font-size:11.5px;color:#6B5A4D">Describe your dispatch process in your own words</div>
+                  </div>
+                  <span style="font-size:13px;font-weight:800;color:#C24000;font-variant-numeric:tabular-nums">{{ recTime }}</span>
+                </div>
+                <div style="margin-top:14px;display:flex;align-items:flex-end;gap:3px;height:38px">
+                  <sc-for list="{{ wave }}" as="bar" hint-placeholder-count="28"><div style="{{ bar.style }}"></div></sc-for>
+                </div>
+                <div style="margin-top:14px;padding:12px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:9px">
+                  <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+                    <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span>
+                    <span style="font-size:11px;font-weight:700;color:#6B5A4D">Transcript · English</span>
+                  </div>
+                  <p style="margin:0;font-size:13px;line-height:1.6;color:#241B14;text-wrap:pretty">"Suresh picks the material, then waits for me to confirm the discount. Sometimes the transporter comes only next morning, so the dispatch slips by a day."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">07 · Progress &amp; score</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Stepper, ring, gauge, pillar bars</h2>
+
+          <div style="display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;margin-bottom:28px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-width:118px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#2E7D32;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <div style="font-size:11.5px;font-weight:700;color:#241B14;text-align:center">Scorecard</div>
+            </div>
+            <div style="flex:1 1 40px;height:2px;background:#2E7D32;margin-top:16px;min-width:24px"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-width:118px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#2E7D32;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <div style="font-size:11.5px;font-weight:700;color:#241B14;text-align:center">Founder Load</div>
+            </div>
+            <div style="flex:1 1 40px;height:2px;background:#E8650A;margin-top:16px;min-width:24px"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-width:118px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#FFFFFF;border:2.5px solid #E8650A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#C24000">3</div>
+              <div style="font-size:11.5px;font-weight:800;color:#C24000;text-align:center">Health Scan</div>
+            </div>
+            <div style="flex:1 1 40px;height:2px;background:#EADBC8;margin-top:16px;min-width:24px"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-width:118px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#FFFAF3;border:2px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#6B5A4D">4</div>
+              <div style="font-size:11.5px;font-weight:700;color:#6B5A4D;text-align:center">Process Walk</div>
+            </div>
+            <div style="flex:1 1 40px;height:2px;background:#EADBC8;margin-top:16px;min-width:24px"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-width:118px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#FFFAF3;border:2px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#6B5A4D">5</div>
+              <div style="font-size:11.5px;font-weight:700;color:#6B5A4D;text-align:center">Data Pack</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;align-items:start">
+            <div style="text-align:center">
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:12px">Progress ring</div>
+              <svg width="118" height="118" viewBox="0 0 120 120" role="img" aria-label="62 percent complete">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#EADBC8" stroke-width="12"></circle>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#E8650A" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="119.4" transform="rotate(-90 60 60)"></circle>
+                <text x="60" y="56" text-anchor="middle" font-family="Mulish" font-size="26" font-weight="800" fill="#241B14">62%</text>
+                <text x="60" y="74" text-anchor="middle" font-family="Mulish" font-size="11" font-weight="700" fill="#6B5A4D">answered</text>
+              </svg>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:12px">Score gauge</div>
+              <svg width="220" height="128" viewBox="0 0 220 128" role="img" aria-label="Score 38 out of 100, Foundation first">
+                <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#EADBC8" stroke-width="16" stroke-linecap="round"></path>
+                <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#C62828" stroke-width="16" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="175.3"></path>
+                <text x="110" y="92" text-anchor="middle" font-family="Mulish" font-size="42" font-weight="800" fill="#241B14">38</text>
+                <text x="110" y="112" text-anchor="middle" font-family="Mulish" font-size="12" font-weight="700" fill="#C62828">Foundation first · /100</text>
+              </svg>
+              <div style="font-size:11px;color:#6B5A4D;margin-top:2px">Calculated by fixed rules, not by AI.</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:12px">Pillar bars · each out of 20</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="5">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+                      <span style="font-size:12.5px;font-weight:700;color:#241B14">{{ p.name }}</span>
+                      <span style="font-size:12px;font-weight:800;color:#C24000;font-variant-numeric:tabular-nums">{{ p.label }}</span>
+                    </div>
+                    <div style="height:9px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="{{ p.fill }}"></div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">08 · Heat map</div>
+          <h2 style="margin:8px 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Function × pillar cells</h2>
+          <p style="margin:0 0 18px;font-size:13px;color:#6B5A4D">Health Scan, Kavya Industrial Supplies · total 40/140 (29%)</p>
+          <div style="overflow-x:auto">
+            <table style="border-collapse:separate;border-spacing:3px;min-width:640px">
+              <thead>
+                <tr>
+                  <th style="text-align:left;padding:6px 10px 6px 0;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B5A4D">Function</th>
+                  <th style="padding:6px 4px;font-size:11px;font-weight:800;color:#6B5A4D;width:104px">Ownership</th>
+                  <th style="padding:6px 4px;font-size:11px;font-weight:800;color:#6B5A4D;width:104px">Process</th>
+                  <th style="padding:6px 4px;font-size:11px;font-weight:800;color:#6B5A4D;width:104px">Data</th>
+                  <th style="padding:6px 4px;font-size:11px;font-weight:800;color:#6B5A4D;width:104px">Numbers &amp; Control</th>
+                  <th style="padding:6px 4px;font-size:11px;font-weight:800;color:#6B5A4D;width:104px">People &amp; Policy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{ heat }}" as="row" hint-placeholder-count="7">
+                  <tr>
+                    <td style="padding:6px 12px 6px 0;font-size:13px;font-weight:700;color:#241B14;white-space:nowrap">{{ row.fn }}</td>
+                    <td style="{{ row.c0 }}">{{ row.v0 }}</td>
+                    <td style="{{ row.c1 }}">{{ row.v1 }}</td>
+                    <td style="{{ row.c2 }}">{{ row.v2 }}</td>
+                    <td style="{{ row.c3 }}">{{ row.v3 }}</td>
+                    <td style="{{ row.c4 }}">{{ row.v4 }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;font-weight:700;color:#6B5A4D">
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#FADBD8;border:1px solid #EADBC8"></span>0 Absent</span>
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#FBE4CC;border:1px solid #EADBC8"></span>1 Founder-dependent</span>
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#FDF4E3;border:1px solid #EADBC8"></span>2 Informal</span>
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#EAF4EB;border:1px solid #EADBC8"></span>3 Defined</span>
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#CDE7CF;border:1px solid #EADBC8"></span>4 Managed</span>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">09 · Findings &amp; badges</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Finding card, badges, tags</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px">
+            <article style="border:1px solid #EADBC8;border-radius:12px;background:#FFFFFF;overflow:hidden">
+              <div style="height:4px;background:#C62828"></div>
+              <div style="padding:18px">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px">
+                  <span style="padding:3px 8px;background:#FADBD8;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#C62828">High risk</span>
+                  <span style="padding:3px 8px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:6px;font-size:10px;font-weight:800;color:#6B5A4D">Sales · Ownership</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span>
+                </div>
+                <h3 style="margin:0;font-size:17px;font-weight:700;line-height:1.35;color:#241B14;text-wrap:pretty">Every discount waits for Kiran's approval</h3>
+                <p style="margin:8px 0 0;font-size:13.5px;line-height:1.6;color:#241B14;text-wrap:pretty">There is no written discount authority. Rahul sends each quotation to the founder on WhatsApp, which adds an average 18-hour wait before the customer hears back.</p>
+                <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap">
+                  <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:7px;font-size:11px;font-weight:700;color:#2E7D32">Evidence · 6 WhatsApp threads</span>
+                  <span style="padding:4px 9px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:7px;font-size:11px;font-weight:700;color:#6B5A4D">Waste · Waiting</span>
+                  <span style="padding:4px 9px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:7px;font-size:11px;font-weight:700;color:#6B5A4D">Trap · Approver</span>
+                </div>
+                <div style="margin-top:14px;padding-top:12px;border-top:1px solid #EADBC8;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <button type="button" style="padding:8px 14px;min-height:36px;background:#E8650A;color:#FFFFFF;border:none;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#D04800">Approve finding</button>
+                  <button type="button" style="padding:8px 14px;min-height:36px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">Edit text</button>
+                </div>
+              </div>
+            </article>
+            <article style="border:1px solid #EADBC8;border-radius:12px;background:#FFFFFF;overflow:hidden">
+              <div style="height:4px;background:#2E7D32"></div>
+              <div style="padding:18px">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px">
+                  <span style="padding:3px 8px;background:#EAF4EB;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#2E7D32">Strength</span>
+                  <span style="padding:3px 8px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:6px;font-size:10px;font-weight:800;color:#6B5A4D">Finance · Data</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:#FFFFFF;border:1.5px solid #2E7D32;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#2E7D32;text-transform:uppercase">Reviewed by consultant</span>
+                </div>
+                <h3 style="margin:0;font-size:17px;font-weight:700;line-height:1.35;color:#241B14;text-wrap:pretty">Tally is current to the day</h3>
+                <p style="margin:8px 0 0;font-size:13.5px;line-height:1.6;color:#241B14;text-wrap:pretty">Meena posts entries daily and reconciles the bank weekly. This is the cleanest data in the business and the right starting point for a weekly MIS summary.</p>
+                <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap">
+                  <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:#EAF4EB;border:1px solid #2E7D32;border-radius:7px;font-size:11px;font-weight:700;color:#2E7D32">Evidence · Debtors ageing</span>
+                  <span style="padding:4px 9px;background:#FDF4E3;border:1px solid #F5A020;border-radius:7px;font-size:11px;font-weight:700;color:#B7791F">Use case #5</span>
+                </div>
+                <div style="margin-top:14px;padding-top:12px;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D">Score adjusted 2 → 3 by Priya Shah on 12 Sep. Reason: bank reconciliation seen on site.</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">10 · Data table &amp; tabs</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Tables, tabs, side nav, top bar</h2>
+
+          <div style="display:flex;gap:4px;border-bottom:1px solid #EADBC8;margin-bottom:18px;flex-wrap:wrap">
+            <button type="button" onClick="{{ setTab.t1 }}" style="{{ tabStyle.t1 }}">Assignments</button>
+            <button type="button" onClick="{{ setTab.t2 }}" style="{{ tabStyle.t2 }}">Evidence</button>
+            <button type="button" onClick="{{ setTab.t3 }}" style="{{ tabStyle.t3 }}">Activity</button>
+          </div>
+
+          <div style="border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;min-width:620px">
+                <thead>
+                  <tr style="background:#FFFAF3">
+                    <th style="text-align:left;padding:11px 16px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B5A4D;border-bottom:1px solid #EADBC8">Person</th>
+                    <th style="text-align:left;padding:11px 16px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B5A4D;border-bottom:1px solid #EADBC8">Section</th>
+                    <th style="text-align:left;padding:11px 16px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B5A4D;border-bottom:1px solid #EADBC8">Due</th>
+                    <th style="text-align:left;padding:11px 16px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B5A4D;border-bottom:1px solid #EADBC8">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;font-weight:700;color:#241B14">Rahul · Sales Coordinator</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#241B14">Sales</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#6B5A4D">18 Sep</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8"><span style="padding:4px 9px;background:#EAF4EB;border-radius:6px;font-size:11px;font-weight:800;color:#2E7D32">Complete</span></td></tr>
+                  <tr><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;font-weight:700;color:#241B14">Meena · Accounts Executive</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#241B14">Finance and Accounts</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#6B5A4D">18 Sep</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8"><span style="padding:4px 9px;background:#FDF4E3;border-radius:6px;font-size:11px;font-weight:800;color:#B7791F">In progress · 7/12</span></td></tr>
+                  <tr><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;font-weight:700;color:#241B14">Suresh · Warehouse In-charge</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#241B14">Delivery and Operations</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8;font-size:13.5px;color:#6B5A4D">20 Sep</td><td style="padding:12px 16px;border-bottom:1px solid #EADBC8"><span style="padding:4px 9px;background:#FADBD8;border-radius:6px;font-size:11px;font-weight:800;color:#C62828">Overdue</span></td></tr>
+                  <tr><td style="padding:12px 16px;font-size:13.5px;font-weight:700;color:#241B14">Hetal · Systems Owner</td><td style="padding:12px 16px;font-size:13.5px;color:#241B14">Technology, Data and AI</td><td style="padding:12px 16px;font-size:13.5px;color:#6B5A4D">22 Sep</td><td style="padding:12px 16px"><span style="padding:4px 9px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:6px;font-size:11px;font-weight:800;color:#6B5A4D">Not started</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="padding:10px 16px;background:#FFFAF3;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D">Visible to Kiran Mehta (founder) and the Amalthea audit team only. <a href="#privacy">Privacy notice · DPDP Act, 2023</a></div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">11 · Feedback &amp; states</div>
+          <h2 style="margin:8px 0 20px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Toasts, modal, empty / loading / error</h2>
+
+          <div style="display:flex;flex-direction:column;gap:10px;max-width:460px;margin-bottom:24px">
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#FFFFFF;border:1px solid #2E7D32;border-left:4px solid #2E7D32;border-radius:10px;box-shadow:0 2px 8px rgba(36,27,20,0.06)">
+              <svg width="18" height="18" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><div style="font-size:13.5px;font-weight:700;color:#241B14">Sales section submitted</div><div style="font-size:12px;color:#6B5A4D;margin-top:2px">Rahul answered all 14 questions.</div></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#FFFFFF;border:1px solid #B7791F;border-left:4px solid #B7791F;border-radius:10px;box-shadow:0 2px 8px rgba(36,27,20,0.06)">
+              <svg width="18" height="18" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#B7791F" stroke-width="1.5"></circle><path d="M8 4.5v4.2M8 11.2v.1" stroke="#B7791F" stroke-width="1.6" stroke-linecap="round"></path></svg>
+              <div><div style="font-size:13.5px;font-weight:700;color:#241B14">3 scores capped at 1</div><div style="font-size:12px;color:#6B5A4D;margin-top:2px">Evidence is missing for Purchase and Inventory.</div></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#FFFFFF;border:1px solid #C62828;border-left:4px solid #C62828;border-radius:10px;box-shadow:0 2px 8px rgba(36,27,20,0.06)">
+              <svg width="18" height="18" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="#C62828" stroke-width="2.2" stroke-linecap="round"></path></svg>
+              <div><div style="font-size:13.5px;font-weight:700;color:#241B14">Upload failed</div><div style="font-size:12px;color:#6B5A4D;margin-top:2px">Tally export is 41 MB. The limit is 25 MB.</div></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+            <div style="border:1px dashed #EADBC8;border-radius:12px;padding:26px 20px;text-align:center;background:#FFFAF3">
+              <svg width="34" height="34" viewBox="0 0 20 20" style="margin-bottom:10px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#EADBC8" stroke-width="1.4"></circle></svg>
+              <div style="font-size:14px;font-weight:700;color:#241B14">No process walk yet</div>
+              <div style="font-size:12.5px;color:#6B5A4D;margin-top:5px;line-height:1.5">Pick one real order and walk it from enquiry to cash.</div>
+              <button type="button" style="margin-top:14px;padding:10px 16px;min-height:44px;background:#E8650A;color:#FFFFFF;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#D04800">Start a walk</button>
+            </div>
+            <div style="border:1px solid #EADBC8;border-radius:12px;padding:26px 20px;text-align:center;background:#FFFFFF">
+              <svg width="34" height="34" viewBox="0 0 34 34" style="margin-bottom:10px;animation:am-spin 1.1s linear infinite" aria-hidden="true"><circle cx="17" cy="17" r="14" fill="none" stroke="#EADBC8" stroke-width="3"></circle><path d="M17 3a14 14 0 0114 14" fill="none" stroke="#E8650A" stroke-width="3" stroke-linecap="round"></path></svg>
+              <div style="font-size:14px;font-weight:700;color:#241B14">AI is drafting your findings</div>
+              <div style="font-size:12.5px;color:#6B5A4D;margin-top:5px;line-height:1.5">Usually under two minutes. We will email Kiran when it is ready.</div>
+              <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+                <div style="height:9px;border-radius:99px;background:#EADBC8;animation:am-pulse 1.4s ease-in-out infinite"></div>
+                <div style="height:9px;border-radius:99px;background:#EADBC8;width:78%;margin:0 auto;animation:am-pulse 1.4s ease-in-out .2s infinite"></div>
+              </div>
+            </div>
+            <div style="border:1px solid #C62828;border-radius:12px;padding:26px 20px;text-align:center;background:#FADBD8">
+              <svg width="34" height="34" viewBox="0 0 20 20" style="margin-bottom:10px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C62828" stroke-width="1.6"></circle><path d="M10 6v5M10 13.4v.1" stroke="#C62828" stroke-width="1.9" stroke-linecap="round"></path></svg>
+              <div style="font-size:14px;font-weight:700;color:#241B14">We could not load this round</div>
+              <div style="font-size:12.5px;color:#6B5A4D;margin-top:5px;line-height:1.5">Your answers are saved. Nothing is lost.</div>
+              <button type="button" style="margin-top:14px;padding:10px 16px;min-height:44px;background:#FFFFFF;color:#C62828;border:1.5px solid #C62828;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer">Try again</button>
+            </div>
+          </div>
+
+          <div style="margin-top:22px">
+            <button type="button" onClick="{{ openModal }}" style="padding:11px 18px;min-height:44px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">Preview modal</button>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">12 · Mobile · 390 px</div>
+          <h2 style="margin:8px 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Founder-facing variants</h2>
+          <p style="margin:0 0 20px;font-size:13px;color:#6B5A4D">Most founders answer on their phones. 44 px touch targets, one question per screen, sticky action bar.</p>
+          <div style="display:flex;gap:22px;flex-wrap:wrap">
+
+            <div style="flex:none;width:390px;max-width:100%;border:1px solid #EADBC8;border-radius:22px;overflow:hidden;background:#FFFAF3;box-shadow:0 4px 18px rgba(36,27,20,0.07)">
+              <div style="background:#FFFFFF;border-bottom:1px solid #EADBC8;padding:12px 16px;display:flex;align-items:center;gap:10px">
+                <button type="button" style="width:44px;height:44px;border:none;background:transparent;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#FDF4E3"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4l-6 6 6 6" stroke="#241B14" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                <div style="flex:1 1 0;min-width:0"><div style="font-size:14px;font-weight:800;color:#241B14">Health Scan</div><div style="font-size:11px;color:#6B5A4D">Sales · question 4 of 14</div></div>
+                <span style="display:inline-flex;align-items:center;gap:5px;padding:5px 9px;background:#EAF4EB;border-radius:999px;font-size:10.5px;font-weight:800;color:#2E7D32">Saved</span>
+              </div>
+              <div style="height:4px;background:#EADBC8"><div style="width:29%;height:100%;background:#E8650A"></div></div>
+              <div style="padding:18px 16px 16px">
+                <div style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Pillar · Process</div>
+                <h3 style="margin:8px 0 0;font-size:19px;font-weight:700;line-height:1.35;color:#241B14;text-wrap:pretty">Is your quotation flow written down anywhere?</h3>
+                <p style="margin:8px 0 0;font-size:13px;line-height:1.55;color:#6B5A4D">Pick the level that matches today, not the plan.</p>
+                <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+                  <button type="button" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:11px;text-align:left;cursor:pointer" style-hover="border-color:#E8650A;background:#FDF4E3"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:#FFFAF3;border:1px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#6B5A4D">0</span><span style="font-size:14px;font-weight:700;color:#241B14">Absent</span></button>
+                  <button type="button" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;background:#FDF4E3;border:2px solid #E8650A;border-radius:11px;text-align:left;cursor:pointer"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:#E8650A;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#FFFFFF">1</span><span style="font-size:14px;font-weight:700;color:#241B14">Founder-dependent</span></button>
+                  <button type="button" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:11px;text-align:left;cursor:pointer" style-hover="border-color:#E8650A;background:#FDF4E3"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:#FFFAF3;border:1px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#6B5A4D">2</span><span style="font-size:14px;font-weight:700;color:#241B14">Informal</span></button>
+                  <button type="button" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:11px;text-align:left;cursor:pointer" style-hover="border-color:#E8650A;background:#FDF4E3"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:#FFFAF3;border:1px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#6B5A4D">3</span><span style="font-size:14px;font-weight:700;color:#241B14">Defined</span></button>
+                  <button type="button" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:11px;text-align:left;cursor:pointer" style-hover="border-color:#E8650A;background:#FDF4E3"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:#FFFAF3;border:1px solid #EADBC8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#6B5A4D">4</span><span style="font-size:14px;font-weight:700;color:#241B14">Managed</span></button>
+                </div>
+                <div style="margin-top:14px;display:flex;align-items:center;gap:10px;padding:11px 13px;background:#FFFFFF;border:1px dashed #F5A020;border-radius:10px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" style="flex:none" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="#C24000" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  <span style="flex:1 1 0;font-size:12.5px;font-weight:700;color:#241B14">Add evidence to score above 1</span>
+                  <button type="button" style="flex:none;min-height:44px;padding:0 13px;background:transparent;border:none;font-size:12.5px;font-weight:800;color:#C24000;cursor:pointer">Upload</button>
+                </div>
+              </div>
+              <div style="position:sticky;bottom:0;background:#FFFFFF;border-top:1px solid #EADBC8;padding:12px 16px;display:flex;gap:10px">
+                <button type="button" style="flex:none;min-height:48px;padding:0 18px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer">Back</button>
+                <button type="button" style="flex:1 1 0;min-height:48px;background:#E8650A;color:#FFFFFF;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer" style-hover="background:#D04800">Next question</button>
+              </div>
+            </div>
+
+            <div style="flex:none;width:390px;max-width:100%;border:1px solid #EADBC8;border-radius:22px;overflow:hidden;background:#FFFAF3;box-shadow:0 4px 18px rgba(36,27,20,0.07)">
+              <div style="background:#15120D;padding:20px 18px 24px">
+                <div style="font-size:10.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F5A020">AI-Readiness Scorecard</div>
+                <div style="margin-top:12px;display:flex;align-items:center;gap:14px">
+                  <svg width="58" height="58" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.2"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 16.4 15.9 Z" fill="#F5A020"></path></svg>
+                  <div>
+                    <div style="font-size:38px;font-weight:800;line-height:1;color:#FFFAF3;letter-spacing:-0.02em">38<span style="font-size:17px;font-weight:700;color:#EADBC8">/100</span></div>
+                    <div style="font-size:13px;font-weight:800;color:#F5A020;margin-top:3px">Foundation first</div>
+                  </div>
+                </div>
+                <div style="margin-top:12px;font-size:12.5px;line-height:1.55;color:#EADBC8">Kavya Industrial Supplies, Rajkot · Illustrative example</div>
+              </div>
+              <div style="padding:16px">
+                <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:10px">Five pillars · out of 20</div>
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="5">
+                    <div>
+                      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
+                        <span style="font-size:12.5px;font-weight:700;color:#241B14">{{ p.name }}</span>
+                        <span style="font-size:12px;font-weight:800;color:#C24000;font-variant-numeric:tabular-nums">{{ p.label }}</span>
+                      </div>
+                      <div style="height:8px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="{{ p.fill }}"></div></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="margin-top:16px;padding:13px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:11px">
+                  <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span>
+                  <p style="margin:9px 0 0;font-size:13px;line-height:1.6;color:#241B14;text-wrap:pretty">Your data is the weakest pillar. Records sit in three places, so any AI you add today would work from guesses. Fix where the records live first.</p>
+                </div>
+                <div style="margin-top:12px;font-size:11px;line-height:1.5;color:#6B5A4D">Scores are calculated by fixed rules. AI writes only the explanation. <a href="#privacy">Privacy notice · DPDP Act, 2023</a></div>
+              </div>
+              <div style="position:sticky;bottom:0;background:#FFFFFF;border-top:1px solid #EADBC8;padding:12px 16px">
+                <button type="button" style="width:100%;min-height:52px;background:#E8650A;color:#FFFFFF;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer" style-hover="background:#D04800">Book a call with Amalthea</button>
+                <button type="button" style="width:100%;min-height:44px;margin-top:8px;background:transparent;color:#C24000;border:none;font-size:13.5px;font-weight:700;cursor:pointer">Email me the report</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C24000">13 · Rules</div>
+          <h2 style="margin:8px 0 18px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Tone, accessibility, content rules</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px">
+            <div style="padding:18px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px">
+              <div style="font-size:13.5px;font-weight:800;color:#241B14;margin-bottom:8px">Tone</div>
+              <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#241B14">
+                <li>Calm, direct, practical. Indian English.</li>
+                <li>Short sentences. No jargon stacks.</li>
+                <li>₹ with Indian grouping: ₹4.2 crore, ₹22 lakh, ₹1,50,000.</li>
+                <li>Unconfirmed prices read "₹— (to be confirmed)".</li>
+              </ul>
+            </div>
+            <div style="padding:18px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px">
+              <div style="font-size:13.5px;font-weight:800;color:#241B14;margin-bottom:8px">Accessibility</div>
+              <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#241B14">
+                <li>WCAG AA contrast throughout.</li>
+                <li>No orange text under 18 px on white — use Deep #C24000.</li>
+                <li>Visible focus ring: 3 px #E8650A, 2 px offset.</li>
+                <li>44 px minimum touch targets on mobile.</li>
+              </ul>
+            </div>
+            <div style="padding:18px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px">
+              <div style="font-size:13.5px;font-weight:800;color:#241B14;margin-bottom:8px">Hard content rules</div>
+              <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#241B14">
+                <li>No income, revenue or profit promises.</li>
+                <li>No invented testimonials, logos or statistics.</li>
+                <li>AI text carries "Drafted by AI" until a consultant approves.</li>
+                <li>Every data screen names who can see the data.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS11 }}">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div>
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:8px">S1.1 · Desktop 1440 · scroll inside the frame</div>
+          <div style="overflow-x:auto"><div style="width:1440px"><dc-import name="Landing" on-start="{{ go.S21 }}" hint-size="1440px,900px"></dc-import></div></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:8px">S1.1 · Mobile 390 · scroll past the hero to see the sticky bar</div>
+          <div style="width:390px;max-width:100%"><dc-import name="Landing" mobile="{{ true }}" on-start="{{ go.S21 }}" hint-size="390px,844px"></dc-import></div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS2 }}">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <sc-if value="{{ s2desk }}"><div><div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:8px">{{ screen }} · Desktop 1440 · interactive</div><div style="overflow-x:auto"><div style="width:1440px"><dc-import name="Scorecard" screen="{{ s2scr }}" variant="{{ s2var }}" hint-size="1440px,900px"></dc-import></div></div></div></sc-if>
+        <sc-if value="{{ s2mob }}"><div><div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:8px">{{ screen }} · Mobile 390 · interactive</div><div style="width:390px;max-width:100%"><dc-import name="Scorecard" mobile="{{ true }}" screen="{{ s2scr }}" variant="{{ s2var }}" hint-size="390px,844px"></dc-import></div></div></sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS2S }}">
+      <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start">
+        <div style="width:390px;max-width:100%"><div style="font-size:12px;font-weight:800;color:#6B5A4D;margin-bottom:8px">Validation errors · S2.2</div><dc-import name="Scorecard" mobile="{{ true }}" screen="S2.2" variant="validation" hint-size="390px,844px"></dc-import></div>
+        <div style="width:390px;max-width:100%"><div style="font-size:12px;font-weight:800;color:#6B5A4D;margin-bottom:8px">Unanswered statements · S2.4</div><dc-import name="Scorecard" mobile="{{ true }}" screen="S2.4" variant="unanswered" hint-size="390px,844px"></dc-import></div>
+        <div style="width:390px;max-width:100%"><div style="font-size:12px;font-weight:800;color:#6B5A4D;margin-bottom:8px">Network error · S2.10</div><dc-import name="Scorecard" mobile="{{ true }}" screen="S2.10" variant="network" hint-size="390px,844px"></dc-import></div>
+        <div style="width:390px;max-width:100%"><div style="font-size:12px;font-weight:800;color:#6B5A4D;margin-bottom:8px">AI unavailable · S2.11</div><dc-import name="Scorecard" mobile="{{ true }}" screen="S2.11" variant="aiDown" hint-size="390px,844px"></dc-import></div>
+        <div style="width:390px;max-width:100%"><div style="font-size:12px;font-weight:800;color:#6B5A4D;margin-bottom:8px">Rate limit · S2.1</div><dc-import name="Scorecard" mobile="{{ true }}" screen="S2.1" variant="ratelimit" hint-size="390px,844px"></dc-import></div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS02 }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Roles and what each one can reach</h2>
+          <p style="margin:0 0 18px;font-size:13.5px;color:#6B5A4D">Audits run in versioned Audit Rounds, so Round 1 and Round 2 can be compared.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px">
+            <div style="padding:15px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Prospect</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Not signed in. Landing page and Scorecard only.</div></div>
+            <div style="padding:15px;background:#FDF4E3;border:1px solid #F5A020;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Founder · Kiran Mehta</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Owns the audit, answers founder questions, assigns sections, sees everything.</div></div>
+            <div style="padding:15px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Team member</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Invited by the founder. Sees only assigned sections.</div></div>
+            <div style="padding:15px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Consultant</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Reviews AI drafts, edits findings, adjusts scores with reasons, approves. Tier 3.</div></div>
+            <div style="padding:15px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Project Manager</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Tracks deadlines and client communication across audits.</div></div>
+            <div style="padding:15px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px"><div style="font-size:13.5px;font-weight:800;color:#241B14">Admin</div><div style="font-size:12px;color:#6B5A4D;margin-top:5px;line-height:1.55">Question banks, prompts, use-case library, users and plans.</div></div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Sitemap · three tiers on one platform</h2>
+          <p style="margin:0 0 20px;font-size:13.5px;color:#6B5A4D">Screen IDs are assigned per stage (S2.3 = Stage 2, screen 3). Stages 1–12 arrive with their prompts.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:16px;align-items:start">
+
+            <div style="border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+              <div style="background:#15120D;padding:14px 16px">
+                <div style="display:flex;align-items:center;gap:8px"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.5"></circle></svg><span style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#F5A020">Public</span></div>
+                <div style="font-size:15px;font-weight:800;color:#FFFAF3;margin-top:6px">Tier 1 · Free Scorecard</div>
+                <div style="font-size:11.5px;color:#EADBC8;margin-top:3px">10 minutes · lead capture</div>
+              </div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:7px;background:#FFFFFF">
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.1</span><span style="font-size:12.5px;color:#241B14">Landing page · hero, belief, three tiers</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.2</span><span style="font-size:12.5px;color:#241B14">Scorecard intro &amp; consent</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.3</span><span style="font-size:12.5px;color:#241B14">10 questions, one per screen</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.4</span><span style="font-size:12.5px;color:#241B14">Lead capture · name, business, phone</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.5</span><span style="font-size:12.5px;color:#241B14">Instant AI report · 38/100 band</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S1.6</span><span style="font-size:12.5px;color:#241B14">Upgrade to Self-Audit · ₹— (to be confirmed)</span></div>
+              </div>
+              <div style="padding:9px 14px;background:#FFFAF3;border-top:1px solid #EADBC8;font-size:10.5px;font-weight:700;color:#6B5A4D">Desktop 1440 + mobile 390</div>
+            </div>
+
+            <div style="border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+              <div style="background:#FDF4E3;padding:14px 16px;border-bottom:1px solid #F5A020">
+                <div style="display:flex;align-items:center;gap:8px"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.5"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><span style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#C24000">Founder + team</span></div>
+                <div style="font-size:15px;font-weight:800;color:#241B14;margin-top:6px">Tier 2 · Self-Audit</div>
+                <div style="font-size:11.5px;color:#6B5A4D;margin-top:3px">Guided workspace · AI report</div>
+              </div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:7px;background:#FFFFFF">
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S2.x</span><span style="font-size:12.5px;color:#241B14">Onboarding · business profile, round setup</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S3.x</span><span style="font-size:12.5px;color:#241B14">Founder Load · Do / Delegate / Design / Delete</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S4.x</span><span style="font-size:12.5px;color:#241B14">Health Scan · 7 functions × 5 pillars</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S5.x</span><span style="font-size:12.5px;color:#241B14">Process Walk · enquiry to cash</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S6.x</span><span style="font-size:12.5px;color:#241B14">Data Pack upload · Tally, price list, invoices</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S7.x</span><span style="font-size:12.5px;color:#241B14">AI Opportunity Matrix · impact × feasibility</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S8.x</span><span style="font-size:12.5px;color:#241B14">Self-Audit Report · Drafted by AI</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S9.x</span><span style="font-size:12.5px;color:#241B14">90-day roadmap · top 3 priorities</span></div>
+              </div>
+              <div style="padding:9px 14px;background:#FFFAF3;border-top:1px solid #EADBC8;font-size:10.5px;font-weight:700;color:#6B5A4D">Desktop 1440 + mobile 390</div>
+            </div>
+
+            <div style="border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+              <div style="background:#FFFFFF;padding:14px 16px;border-bottom:1px solid #EADBC8">
+                <div style="display:flex;align-items:center;gap:8px"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="#F5A020" stroke="#C24000" stroke-width="1.5"></circle></svg><span style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#C24000">+ Consultant</span></div>
+                <div style="font-size:15px;font-weight:800;color:#241B14;margin-top:6px">Tier 3 · Consultant-led BPA</div>
+                <div style="font-size:11.5px;color:#6B5A4D;margin-top:3px">Same workspace + review and approval</div>
+              </div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:7px;background:#FFFFFF">
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.1</span><span style="font-size:12.5px;color:#241B14">Consultant audit queue</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.2</span><span style="font-size:12.5px;color:#241B14">Review AI draft findings side by side</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.3</span><span style="font-size:12.5px;color:#241B14">Site-visit observations &amp; photos</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.4</span><span style="font-size:12.5px;color:#241B14">Score adjustment with reason</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.5</span><span style="font-size:12.5px;color:#241B14">Approve report · Reviewed by consultant</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S10.6</span><span style="font-size:12.5px;color:#241B14">Roadmap builder → 6-month implementation</span></div>
+              </div>
+              <div style="padding:9px 14px;background:#FFFAF3;border-top:1px solid #EADBC8;font-size:10.5px;font-weight:700;color:#6B5A4D">Desktop only</div>
+            </div>
+
+            <div style="border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+              <div style="background:#FFFAF3;padding:14px 16px;border-bottom:1px solid #EADBC8">
+                <div style="display:flex;align-items:center;gap:8px"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#6B5A4D" stroke-width="1.5"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#EADBC8"></path></svg><span style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Amalthea internal</span></div>
+                <div style="font-size:15px;font-weight:800;color:#241B14;margin-top:6px">PM &amp; Admin</div>
+                <div style="font-size:11.5px;color:#6B5A4D;margin-top:3px">Across all audits and rounds</div>
+              </div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:7px;background:#FFFFFF">
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S11.1</span><span style="font-size:12.5px;color:#241B14">PM board · deadlines by audit</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S11.2</span><span style="font-size:12.5px;color:#241B14">Client communication log</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S12.1</span><span style="font-size:12.5px;color:#241B14">Question bank editor</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S12.2</span><span style="font-size:12.5px;color:#241B14">AI prompt library &amp; versions</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S12.3</span><span style="font-size:12.5px;color:#241B14">Use-case library</span></div>
+                <div style="display:flex;gap:9px;align-items:baseline"><span style="flex:none;font-size:10px;font-weight:800;color:#C24000;width:32px">S12.4</span><span style="font-size:12.5px;color:#241B14">Users, roles and plans</span></div>
+              </div>
+              <div style="padding:9px 14px;background:#FFFAF3;border-top:1px solid #EADBC8;font-size:10.5px;font-weight:700;color:#6B5A4D">Desktop only</div>
+            </div>
+          </div>
+        </section>
+
+        <section style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px 28px">
+          <h2 style="margin:0 0 18px;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">The journey, as moon phases</h2>
+          <div style="display:flex;gap:0;flex-wrap:wrap;align-items:flex-start">
+            <div style="flex:1 1 150px;min-width:130px;text-align:center">
+              <svg width="44" height="44" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.3"></circle></svg>
+              <div style="font-size:13px;font-weight:800;color:#241B14;margin-top:6px">Scorecard</div>
+              <div style="font-size:11.5px;color:#6B5A4D;line-height:1.5;margin-top:3px">10 minutes, free. You learn your band.</div>
+            </div>
+            <div style="flex:1 1 150px;min-width:130px;text-align:center">
+              <svg width="44" height="44" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.3"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z" fill="#F5A020"></path></svg>
+              <div style="font-size:13px;font-weight:800;color:#241B14;margin-top:6px">Self-Audit</div>
+              <div style="font-size:11.5px;color:#6B5A4D;line-height:1.5;margin-top:3px">Question bank, process walk, data pack.</div>
+            </div>
+            <div style="flex:1 1 150px;min-width:130px;text-align:center">
+              <svg width="44" height="44" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.3"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+              <div style="font-size:13px;font-weight:800;color:#241B14;margin-top:6px">Consultant review</div>
+              <div style="font-size:11.5px;color:#6B5A4D;line-height:1.5;margin-top:3px">Site visit, adjusted scores, approval.</div>
+            </div>
+            <div style="flex:1 1 150px;min-width:130px;text-align:center">
+              <svg width="44" height="44" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.3"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg>
+              <div style="font-size:13px;font-weight:800;color:#241B14;margin-top:6px">90-day roadmap</div>
+              <div style="font-size:11.5px;color:#6B5A4D;line-height:1.5;margin-top:3px">Top 3 priorities, owners, dates.</div>
+            </div>
+            <div style="flex:1 1 150px;min-width:130px;text-align:center">
+              <svg width="44" height="44" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="#F5A020" stroke="#C24000" stroke-width="1.3"></circle></svg>
+              <div style="font-size:13px;font-weight:800;color:#241B14;margin-top:6px">Implementation</div>
+              <div style="font-size:11.5px;color:#6B5A4D;line-height:1.5;margin-top:3px">Six months. Then Round 2 compares.</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;padding:15px 18px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px;font-size:14px;font-weight:700;color:#241B14;text-wrap:pretty">AI multiplies whatever it lands on. A messy process plus AI gives you faster mess.</div>
+        </section>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS03 }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="padding:14px 18px;background:#FDF4E3;border:1px solid #F5A020;border-radius:11px;font-size:13px;line-height:1.6;color:#241B14">Empty shell only — no stage content yet. Top bar carries the business, audit round and role switcher. Side navigation follows the audit sequence, with the two Amalthea-only items hidden for Tier 2.</div>
+        <div style="border:1px solid #EADBC8;border-radius:14px;overflow:hidden;background:#FFFAF3">
+          <div style="background:#FFFFFF;border-bottom:1px solid #EADBC8;padding:11px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:9px">
+              <svg width="24" height="24" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+              <span style="font-size:14px;font-weight:800;color:#241B14">Amalthea</span>
+            </div>
+            <div style="height:24px;width:1px;background:#EADBC8"></div>
+            <div style="min-width:0">
+              <div style="font-size:13.5px;font-weight:800;color:#241B14;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Kavya Industrial Supplies</div>
+              <div style="font-size:11px;color:#6B5A4D">Rajkot · ₹4.2 crore · 19 people</div>
+            </div>
+            <button type="button" style="display:inline-flex;align-items:center;gap:7px;padding:7px 12px;min-height:36px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:8px;font-size:12px;font-weight:700;color:#241B14;cursor:pointer" style-hover="border-color:#E8650A;background:#FDF4E3">Round 1 · Sep 2026<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 5l3 3 3-3" stroke="#6B5A4D" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div style="flex:1 1 20px"></div>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:#EAF4EB;border-radius:999px;font-size:11.5px;font-weight:700;color:#2E7D32">Saved</span>
+            <button type="button" style="width:38px;height:38px;border:1px solid #EADBC8;background:#FFFFFF;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#FDF4E3"><svg width="17" height="17" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a4.5 4.5 0 00-4.5 4.5c0 4-1.8 5.2-1.8 5.2h12.6s-1.8-1.2-1.8-5.2A4.5 4.5 0 0010 3zM8.4 15.6a1.8 1.8 0 003.2 0" stroke="#241B14" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div style="display:flex;align-items:center;gap:9px;padding-left:6px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#F5A020;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#241B14">KM</div>
+              <div><div style="font-size:12.5px;font-weight:700;color:#241B14">Kiran Mehta</div><div style="font-size:10.5px;font-weight:700;color:#6B5A4D">Founder</div></div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:stretch;min-height:520px">
+            <div style="flex:0 0 244px;background:#FFFFFF;border-right:1px solid #EADBC8;padding:16px 12px;display:flex;flex-direction:column">
+              <div style="padding:0 10px 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Your audit</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;background:#FDF4E3;border-left:3px solid #E8650A;border-radius:0 8px 8px 0;font-size:13.5px;font-weight:800;color:#C24000">Dashboard</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>Business profile</span><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>Founder Load</span><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>Health Scan</span><span style="font-size:10.5px;font-weight:800;color:#B7791F;background:#FDF4E3;padding:2px 7px;border-radius:5px">7/9</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Process Walk</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>Data Pack</span><span style="font-size:10.5px;font-weight:800;color:#6B5A4D;background:#FFFAF3;border:1px solid #EADBC8;padding:2px 7px;border-radius:5px">2</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">AI Opportunities</div>
+              </div>
+              <div style="margin:16px 0 10px;padding:0 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Results</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#6B5A4D"><span>Report</span><span style="font-size:10px;font-weight:800;color:#6B5A4D;background:#FFFAF3;border:1px solid #EADBC8;padding:2px 7px;border-radius:5px">Locked</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#6B5A4D"><span>90-day roadmap</span><span style="font-size:10px;font-weight:800;color:#6B5A4D;background:#FFFAF3;border:1px solid #EADBC8;padding:2px 7px;border-radius:5px">Locked</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Round comparison</div>
+              </div>
+              <div style="margin:16px 0 10px;padding:0 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Manage</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>Team &amp; assignments</span><span style="font-size:10.5px;font-weight:800;color:#C62828;background:#FADBD8;padding:2px 7px;border-radius:5px">1</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Plan &amp; billing</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Settings</div>
+              </div>
+              <div style="flex:1 1 auto"></div>
+              <div style="margin-top:16px;padding:12px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:10px">
+                <div style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.5"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><span style="font-size:11.5px;font-weight:800;color:#241B14">Self-Audit · Tier 2</span></div>
+                <div style="font-size:11px;color:#6B5A4D;margin-top:6px;line-height:1.5">Add a consultant review for the full Business Process Audit.</div>
+                <button type="button" style="margin-top:9px;width:100%;min-height:36px;background:#FFFFFF;color:#C24000;border:1.5px solid #E8650A;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">₹— (to be confirmed)</button>
+              </div>
+            </div>
+
+            <div style="flex:1 1 0;min-width:0;padding:44px 32px;display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center;max-width:420px">
+                <svg width="44" height="44" viewBox="0 0 20 20" style="margin-bottom:14px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#EADBC8" stroke-width="1.3"></circle></svg>
+                <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Founder workspace shell</div>
+                <h3 style="margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Stage content goes here</h3>
+                <p style="margin:9px 0 0;font-size:13.5px;line-height:1.6;color:#6B5A4D;text-wrap:pretty">Dashboard, Founder Load, Health Scan, Process Walk, Data Pack, AI Opportunities, Report and Roadmap each render inside this region. Mobile uses the same navigation as a bottom sheet.</p>
+              </div>
+            </div>
+          </div>
+          <div style="padding:10px 18px;background:#FFFFFF;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D">Your answers are visible to Kiran Mehta, the team members you assign, and the Amalthea audit team. <a href="#privacy">Privacy notice · DPDP Act, 2023</a></div>
+        </div>
+
+        <div style="display:flex;gap:22px;flex-wrap:wrap">
+          <div style="flex:none;width:390px;max-width:100%;border:1px solid #EADBC8;border-radius:22px;overflow:hidden;background:#FFFAF3;box-shadow:0 4px 18px rgba(36,27,20,0.07)">
+            <div style="background:#FFFFFF;border-bottom:1px solid #EADBC8;padding:11px 14px;display:flex;align-items:center;gap:10px">
+              <button type="button" style="width:44px;height:44px;border:none;background:transparent;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#FDF4E3"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="#241B14" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+              <div style="flex:1 1 0;min-width:0"><div style="font-size:13.5px;font-weight:800;color:#241B14;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Kavya Industrial Supplies</div><div style="font-size:10.5px;color:#6B5A4D">Round 1 · Self-Audit</div></div>
+              <div style="width:34px;height:34px;border-radius:99px;background:#F5A020;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;color:#241B14">KM</div>
+            </div>
+            <div style="padding:44px 20px;text-align:center">
+              <svg width="38" height="38" viewBox="0 0 20 20" style="margin-bottom:12px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#EADBC8" stroke-width="1.3"></circle></svg>
+              <div style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Mobile shell · 390 px</div>
+              <div style="font-size:16px;font-weight:800;color:#241B14;margin-top:7px">Stage content goes here</div>
+              <p style="margin:8px 0 0;font-size:12.5px;line-height:1.55;color:#6B5A4D">Navigation opens as a bottom sheet from the menu button.</p>
+            </div>
+            <div style="background:#FFFFFF;border-top:1px solid #EADBC8;padding:8px 6px;display:flex">
+              <div style="flex:1 1 0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9l7-6 7 6v8a1 1 0 01-1 1h-4v-6H8v6H4a1 1 0 01-1-1V9z" stroke="#C24000" stroke-width="1.5" fill="none" stroke-linejoin="round"></path></svg><span style="font-size:10.5px;font-weight:800;color:#C24000">Audit</span></div>
+              <div style="flex:1 1 0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16V8m4 8V4m4 12v-6m4 6V6" stroke="#6B5A4D" stroke-width="1.7" fill="none" stroke-linecap="round"></path></svg><span style="font-size:10.5px;font-weight:700;color:#6B5A4D">Scores</span></div>
+              <div style="flex:1 1 0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h7l3 3v11H5z" stroke="#6B5A4D" stroke-width="1.5" fill="none" stroke-linejoin="round"></path></svg><span style="font-size:10.5px;font-weight:700;color:#6B5A4D">Report</span></div>
+              <div style="flex:1 1 0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="7" r="2.6" stroke="#6B5A4D" stroke-width="1.5" fill="none"></circle><path d="M3.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="#6B5A4D" stroke-width="1.5" fill="none" stroke-linecap="round"></path></svg><span style="font-size:10.5px;font-weight:700;color:#6B5A4D">Team</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isS04 }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="padding:14px 18px;background:#FDF4E3;border:1px solid #F5A020;border-radius:11px;font-size:13px;line-height:1.6;color:#241B14">Desktop only. The console is client-switching first: the top bar carries the client and round, the rail carries the review sequence, and admin items appear only for Admin role.</div>
+        <div style="border:1px solid #EADBC8;border-radius:14px;overflow:hidden;background:#FFFAF3">
+          <div style="background:#15120D;padding:11px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:9px">
+              <svg width="24" height="24" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg>
+              <span style="font-size:14px;font-weight:800;color:#FFFAF3">Amalthea Console</span>
+            </div>
+            <button type="button" style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;min-height:36px;background:rgba(255,250,243,0.08);border:1px solid #6B5A4D;border-radius:8px;font-size:12.5px;font-weight:700;color:#FFFAF3;cursor:pointer" style-hover="background:rgba(255,250,243,0.16)">Kavya Industrial Supplies · Round 1<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 5l3 3 3-3" stroke="#F5A020" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div style="flex:1 1 20px"></div>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:#FDF4E3;border-radius:999px;font-size:11.5px;font-weight:800;color:#B7791F">6 findings awaiting review</span>
+            <div style="display:flex;align-items:center;gap:9px">
+              <div style="width:34px;height:34px;border-radius:99px;background:#E8650A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#FFFFFF">PS</div>
+              <div><div style="font-size:12.5px;font-weight:700;color:#FFFAF3">Priya Shah</div><div style="font-size:10.5px;font-weight:700;color:#F5A020">Consultant</div></div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:stretch;min-height:520px">
+            <div style="flex:0 0 244px;background:#FFFFFF;border-right:1px solid #EADBC8;padding:16px 12px;display:flex;flex-direction:column">
+              <div style="padding:0 10px 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Across clients</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;background:#FDF4E3;border-left:3px solid #E8650A;border-radius:0 8px 8px 0;font-size:13.5px;font-weight:800;color:#C24000">Audit queue</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14"><span>My reviews</span><span style="font-size:10.5px;font-weight:800;color:#B7791F;background:#FDF4E3;padding:2px 7px;border-radius:5px">6</span></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Schedule &amp; site visits</div>
+              </div>
+              <div style="margin:16px 0 10px;padding:0 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">This client</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Client workspace</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Review AI draft</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Site-visit notes</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Score adjustments</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Evidence locker</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Report &amp; approval</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Roadmap builder</div>
+              </div>
+              <div style="margin:16px 0 10px;padding:0 10px;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Admin only</div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Question banks</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">AI prompts</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Use-case library</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:#241B14">Users &amp; plans</div>
+              </div>
+              <div style="flex:1 1 auto"></div>
+              <div style="margin-top:16px;padding:12px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:10px;font-size:11px;line-height:1.5;color:#6B5A4D">Consultant edits are logged with your name, the old score and your reason.</div>
+            </div>
+
+            <div style="flex:1 1 0;min-width:0;padding:44px 32px;display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center;max-width:420px">
+                <svg width="44" height="44" viewBox="0 0 20 20" style="margin-bottom:14px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#EADBC8" stroke-width="1.3"></circle></svg>
+                <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Consultant console shell</div>
+                <h3 style="margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Review content goes here</h3>
+                <p style="margin:9px 0 0;font-size:13.5px;line-height:1.6;color:#6B5A4D;text-wrap:pretty">Queue, side-by-side draft review, site-visit notes, score adjustment with reasons, approval and the roadmap builder render inside this region.</p>
+              </div>
+            </div>
+          </div>
+          <div style="padding:10px 18px;background:#FFFFFF;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D">Client data is visible to the assigned consultant, the Project Manager and Admin. Access is logged. <a href="#privacy">Privacy notice · DPDP Act, 2023</a></div>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </main>
+
+  <sc-if value="{{ modal }}">
+  <div style="position:fixed;inset:0;z-index:90;background:rgba(21,18,13,0.55);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div role="dialog" aria-modal="true" style="width:100%;max-width:470px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;box-shadow:0 18px 48px rgba(21,18,13,0.28);overflow:hidden">
+      <div style="padding:22px 24px 0">
+        <h3 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.015em;color:#241B14">Submit Sales for consultant review?</h3>
+        <p style="margin:10px 0 0;font-size:13.5px;line-height:1.6;color:#241B14;text-wrap:pretty">Rahul's 14 answers and 6 evidence files will be locked. Priya Shah will be notified. You can still add evidence to other sections.</p>
+        <div style="margin-top:14px;padding:12px 14px;background:#FDF4E3;border:1px solid #F5A020;border-radius:9px;font-size:12.5px;line-height:1.55;color:#B7791F;font-weight:600">Two Sales scores are capped at 1 because no evidence is attached.</div>
+      </div>
+      <div style="padding:20px 24px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+        <button type="button" onClick="{{ closeModal }}" style="padding:11px 18px;min-height:44px;background:transparent;color:#C24000;border:none;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#FDF4E3">Not yet</button>
+        <button type="button" onClick="{{ closeModal }}" style="padding:11px 18px;min-height:44px;background:#E8650A;color:#FFFFFF;border:none;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#D04800">Submit for review</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
+class Component extends DCLogic {
+  state = { screen: "S1.1", score: 1, yn: false, tab: "t1", modal: false, rec: false };
+
+  renderVals() {
+    const s = this.state;
+    const ids = { S01: "S0.1", S02: "S0.2", S03: "S0.3", S04: "S0.4", S11: "S1.1", S21: "S2.1" };
+    const meta = {
+      "S0.1": ["S0.1 · Style Guide", "Every token and component, desktop and mobile. Build once, reuse across all 13 stages."],
+      "S0.2": ["S0.2 · Sitemap & Roles", "What exists, who can reach it, and how a founder moves from Scorecard to implementation."],
+      "S0.3": ["S0.3 · Founder Workspace Shell", "The empty frame every founder-facing stage renders inside."],
+      "S0.4": ["S0.4 · Consultant Console Shell", "The empty frame every Amalthea review screen renders inside. Desktop only."],
+      "S1.1": ["S1.1 · Landing page", "Prospect understands the problem, sees the three tiers and the report, and starts the free Scorecard. Buttons link to S2.1 and S10.5."]
+    };
+    const S2L = [["S2.1","Start","Title, what you get, privacy line, Start."],["S2.2","Your details","Nine fields with inline validation and required consent."],["S2.3","Ownership","Five statements, 0–4 chips. Moon stepper fills as you go."],["S2.4","Process","Five statements on Process."],["S2.5","Data","Five statements on Data."],["S2.6","Numbers and Control","Five statements on Numbers and Control."],["S2.7","People and Policy","Five statements on People and Policy."],["S2.8","Open questions","Bottleneck, software used, one task to automate."],["S2.9","Review","Collapsible pillar summary with Edit links."],["S2.10","Generating","Animated checklist, 15–30 seconds."],["S2.11","Result · desktop","Score 38/100, pillars, AI report, routed next step."],["S2.12","Result · mobile","Score first, collapsible sections."],["S2.13","Delivery confirmation","Toast after Send to WhatsApp."],["S2.14","PDF · two-page A4","Light theme, Mulish, amber accents."],["S2.15","Resume banner","Returning visitor, 14 of 25 answered."],["S2.S","Error and edge states","Validation, unanswered, network, AI unavailable, rate limit."]];
+    S2L.forEach(([id, l, p]) => { ids["s2_" + id] = id; meta[id] = [id + " · " + l, p]; });
+    const go = {}, navStyle = {};
+    const base = "display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;font-size:13px;cursor:pointer;font-family:Mulish,sans-serif;";
+    Object.keys(ids).forEach(k => {
+      go[k] = () => this.setState({ screen: ids[k] });
+      navStyle[k] = s.screen === ids[k]
+        ? base + "background:#FDF4E3;border:1px solid #F5A020;font-weight:800;color:#241B14"
+        : base + "background:transparent;border:1px solid transparent;font-weight:600;color:#241B14";
+    });
+
+    const chipBase = "display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:104px;min-height:68px;padding:10px 8px;border-radius:11px;cursor:pointer;font-family:Mulish,sans-serif;";
+    const chip = {}, setScore = {};
+    for (let i = 0; i <= 4; i++) {
+      setScore["s" + i] = () => this.setState({ score: i });
+      chip["s" + i] = s.score === i
+        ? chipBase + "background:#FDF4E3;border:2px solid #E8650A;color:#241B14"
+        : chipBase + "background:#FFFFFF;border:1px solid #EADBC8;color:#6B5A4D";
+    }
+    const evidenceNote = s.score >= 2
+      ? "Level " + s.score + " needs evidence. Attach a document, report, photo or meeting note, or this score will be capped at 1."
+      : "Level " + s.score + " needs no evidence. A score of 2 or more does.";
+
+    const tabBase = "padding:11px 16px;min-height:44px;background:transparent;border:none;border-bottom:3px solid transparent;font-size:13.5px;cursor:pointer;font-family:Mulish,sans-serif;";
+    const tabStyle = {}, setTab = {};
+    ["t1", "t2", "t3"].forEach(t => {
+      setTab[t] = () => this.setState({ tab: t });
+      tabStyle[t] = s.tab === t
+        ? tabBase + "border-bottom-color:#E8650A;font-weight:800;color:#C24000"
+        : tabBase + "font-weight:600;color:#6B5A4D";
+    });
+
+    const pillarData = [["Ownership", 9], ["Process", 7], ["Data", 5], ["Numbers and Control", 8], ["People and Policy", 9]];
+    const pillars = pillarData.map(([name, v]) => ({
+      name, label: v + "/20",
+      fill: "width:" + Math.round((v / 20) * 100) + "%;height:100%;background:" + (v >= 14 ? "#2E7D32" : v >= 8 ? "#F5A020" : "#C62828") + ";border-radius:99px"
+    }));
+
+    const cellBg = ["#FADBD8", "#FBE4CC", "#FDF4E3", "#EAF4EB", "#CDE7CF"];
+    const heatData = [
+      ["Sales", [1, 1, 1, 2, 2]],
+      ["Marketing", [0, 0, 0, 0, 1]],
+      ["Delivery and Operations", [2, 1, 1, 1, 2]],
+      ["Purchase and Inventory", [1, 1, 1, 1, 1]],
+      ["Finance and Accounts", [2, 2, 2, 2, 2]],
+      ["People", [1, 0, 0, 0, 1]],
+      ["Administration and Compliance", [2, 2, 1, 1, 2]]
+    ];
+    const heat = heatData.map(([fn, vs]) => {
+      const r = { fn };
+      vs.forEach((v, i) => {
+        r["v" + i] = v;
+        r["c" + i] = "text-align:center;padding:12px 4px;border-radius:8px;font-size:15px;font-weight:800;color:#241B14;background:" + cellBg[v];
+      });
+      return r;
+    });
+
+    const amp = [5, 11, 18, 26, 34, 22, 14, 29, 36, 20, 9, 16, 27, 33, 24, 12, 7, 19, 30, 25, 15, 21, 32, 17, 10, 23, 13, 6];
+    const wave = amp.map(h => ({
+      style: "flex:1 1 0;height:" + h + "px;border-radius:2px;background:" + (this.state.rec ? "#E8650A" : "#EADBC8")
+    }));
+
+    return {
+      screenTitle: meta[s.screen][0], screenPurpose: meta[s.screen][1],
+      isS01: s.screen === "S0.1", isS02: s.screen === "S0.2", isS03: s.screen === "S0.3", isS04: s.screen === "S0.4", isS11: s.screen === "S1.1",
+      isS2: /^S2\.\d+$/.test(s.screen), isS2S: s.screen === "S2.S",
+      s2scr: ({ "S2.12": "S2.11", "S2.13": "S2.11", "S2.15": "S2.5" })[s.screen] || s.screen,
+      s2var: ({ "S2.13": "sent", "S2.15": "resume" })[s.screen] || "",
+      s2desk: s.screen !== "S2.12", s2mob: s.screen !== "S2.11" && s.screen !== "S2.14",
+      screen: s.screen,
+      s2nav: S2L.map(([id, l]) => ({ id, label: l, go: () => this.setState({ screen: id }), style: base + (s.screen === id ? "background:#FDF4E3;border:1px solid #F5A020;font-weight:800;color:#241B14" : "background:transparent;border:1px solid transparent;font-weight:600;color:#241B14") })),
+      go, navStyle, chip, setScore, evidenceNote, tabStyle, setTab, pillars, heat, wave,
+      yn: s.yn,
+      ynLabel: s.yn ? "Yes, written and shared" : "No, not yet",
+      ynTrack: "position:relative;flex:none;width:60px;height:34px;border-radius:99px;cursor:pointer;border:1px solid " + (s.yn ? "#2E7D32" : "#EADBC8") + ";background:" + (s.yn ? "#2E7D32" : "#EADBC8") + ";padding:0",
+      ynKnob: "position:absolute;top:3px;left:" + (s.yn ? "29px" : "3px") + ";width:26px;height:26px;border-radius:99px;background:#FFFFFF;transition:left .16s ease;display:block",
+      toggleYn: () => this.setState({ yn: !s.yn }),
+      modal: s.modal,
+      openModal: () => this.setState({ modal: true }),
+      closeModal: () => this.setState({ modal: false }),
+      toggleRec: () => this.setState({ rec: !s.rec }),
+      recLabel: s.rec ? "Recording…" : "Voice note · tap to record",
+      recTime: s.rec ? "0:07" : "0:00",
+      recBtn: "flex:none;width:48px;height:48px;border-radius:99px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;background:" + (s.rec ? "#C62828" : "#E8650A") + ";color:#FFFFFF"
+    };
+  }
+}
+</script>
+</body>
+</html>

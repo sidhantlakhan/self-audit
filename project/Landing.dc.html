@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div ref="{{ setRoot }}" onScroll="{{ onScroll }}" style="position:relative;height:{{ frameH }}px;overflow-y:auto;overflow-x:hidden;background:#FFFAF3;color:#241B14;font-family:Mulish,sans-serif;border:1px solid #EADBC8;border-radius:{{ frameR }}px;scroll-behavior:auto">
+
+  <header style="position:sticky;top:0;z-index:30;background:#15120D;border-bottom:1px solid #3a3027;padding:0 {{ px }}px;height:{{ barH }}px;display:flex;align-items:center;gap:22px">
+    <a href="#top" onClick="{{ act.top }}" style="display:flex;align-items:center;gap:9px;text-decoration:none;flex:none">
+      <svg width="28" height="28" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+      <span style="font-size:17px;font-weight:800;letter-spacing:-0.01em;color:#FFFAF3">Amalthea</span>
+    </a>
+    <sc-if value="{{ notM }}">
+    <nav style="display:flex;gap:26px;margin-left:18px;flex:1 1 auto;white-space:nowrap">
+      <a href="#how" onClick="{{ act.how }}" style="font-size:14px;font-weight:600;color:#EADBC8;text-decoration:none" style-hover="color:#F5A020">How it works</a>
+      <a href="#sample" onClick="{{ act.sample }}" style="font-size:14px;font-weight:600;color:#EADBC8;text-decoration:none" style-hover="color:#F5A020">Sample report</a>
+      <a href="#about" onClick="{{ act.about }}" style="font-size:14px;font-weight:600;color:#EADBC8;text-decoration:none" style-hover="color:#F5A020">About</a>
+      <a href="#faq" onClick="{{ act.faq }}" style="font-size:14px;font-weight:600;color:#EADBC8;text-decoration:none" style-hover="color:#F5A020">FAQ</a>
+    </nav>
+    <a href="#login" onClick="{{ act.login }}" style="font-size:14px;font-weight:700;color:#FFFAF3;text-decoration:none;padding:10px 6px;white-space:nowrap" style-hover="color:#F5A020">Log in</a>
+    <button type="button" onClick="{{ act.start }}" style="{{ barBtn }}">Check my AI-readiness — free</button>
+    </sc-if>
+    <sc-if value="{{ m }}">
+    <div style="flex:1 1 auto"></div>
+    <a href="#login" onClick="{{ act.login }}" style="font-size:14px;font-weight:700;color:#FFFAF3;text-decoration:none;min-height:44px;display:flex;align-items:center;padding:0 4px">Log in</a>
+    <button type="button" onClick="{{ act.menu }}" aria-label="Menu" style="width:44px;height:44px;border:none;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="22" height="22" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="#FFFAF3" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ menuOpen }}">
+  <div style="background:#15120D;padding:6px {{ px }}px 16px;display:flex;flex-direction:column;border-bottom:1px solid #3a3027">
+    <a href="#how" onClick="{{ act.how }}" style="min-height:48px;display:flex;align-items:center;font-size:15px;font-weight:700;color:#FFFAF3;text-decoration:none">How it works</a>
+    <a href="#sample" onClick="{{ act.sample }}" style="min-height:48px;display:flex;align-items:center;font-size:15px;font-weight:700;color:#FFFAF3;text-decoration:none">Sample report</a>
+    <a href="#about" onClick="{{ act.about }}" style="min-height:48px;display:flex;align-items:center;font-size:15px;font-weight:700;color:#FFFAF3;text-decoration:none">About</a>
+    <a href="#faq" onClick="{{ act.faq }}" style="min-height:48px;display:flex;align-items:center;font-size:15px;font-weight:700;color:#FFFAF3;text-decoration:none">FAQ</a>
+  </div>
+  </sc-if>
+
+  <section data-sec="top" style="background:#15120D;padding:{{ heroPad }};color:#FFFAF3">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:{{ heroGap }}px;align-items:center;max-width:1240px;margin:0 auto">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F5A020">AI-Readiness Scorecard · 10 minutes</div>
+        <h1 style="margin:14px 0 0;font-size:{{ h1 }}px;line-height:1.06;font-weight:800;letter-spacing:-0.03em;color:#FFFFFF;text-wrap:balance">Is your business ready for AI?</h1>
+        <p style="margin:16px 0 0;font-size:{{ lead }}px;line-height:1.55;color:#EADBC8;max-width:46ch;text-wrap:pretty">Most AI courses teach tools. We make your business ready for them — then put them to work.</p>
+        <div style="margin-top:26px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <button type="button" onClick="{{ act.start }}" style="{{ heroBtn }}">Take the 10-minute Scorecard</button>
+          <a href="#sample" onClick="{{ act.sample }}" style="min-height:44px;display:inline-flex;align-items:center;font-size:15px;font-weight:700;color:#F5A020;text-decoration:underline;text-underline-offset:4px">See a sample report</a>
+        </div>
+        <div style="margin-top:8px;font-size:13px;font-weight:600;color:#EADBC8">Free · No card needed · Your data stays private</div>
+      </div>
+
+      <div style="position:relative;justify-self:center;width:100%;max-width:460px;padding:{{ cardPad }}">
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px;color:#241B14;box-shadow:0 24px 60px rgba(0,0,0,0.45);transform:{{ cardTilt }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+            <span style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Kavya Industrial Supplies · Rajkot</span>
+            <span style="padding:3px 8px;background:#FDF4E3;border:1px solid #F5A020;border-radius:999px;font-size:10px;font-weight:800;color:#B7791F;white-space:nowrap">Illustrative example</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <svg width="132" height="80" viewBox="0 0 220 128" role="img" aria-label="Score 38 out of 100, Foundation first" style="flex:none">
+              <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#EADBC8" stroke-width="18" stroke-linecap="round"></path>
+              <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#C62828" stroke-width="18" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="175.3"></path>
+              <text x="110" y="100" text-anchor="middle" font-family="Mulish" font-size="52" font-weight="800" fill="#241B14">38</text>
+            </svg>
+            <div><div style="font-size:11px;font-weight:700;color:#6B5A4D">AI-readiness score · /100</div><div style="font-size:18px;font-weight:800;color:#C62828;margin-top:2px">Foundation first</div></div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+            <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:10px"><span style="flex:0 0 132px;font-size:12px;font-weight:700;color:#241B14">{{ p.name }}</span><div style="flex:1 1 0;height:8px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="{{ p.fill }}"></div></div><span style="flex:none;width:34px;text-align:right;font-size:11.5px;font-weight:800;color:#C24000;font-variant-numeric:tabular-nums">{{ p.label }}</span></div>
+            </sc-for>
+          </div>
+          <div style="margin-top:14px;border:1px solid #EADBC8;border-radius:11px;overflow:hidden">
+            <div style="height:3px;background:#C62828"></div>
+            <div style="padding:12px 13px">
+              <span style="display:inline-flex;padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span>
+              <div style="margin-top:8px;font-size:14px;font-weight:700;line-height:1.35;color:#241B14">Every discount waits for the founder</div>
+              <div style="margin-top:4px;font-size:12px;line-height:1.5;color:#6B5A4D">No written discount rule. Quotations wait about 18 hours for approval.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FFFAF3;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto">
+      <h2 style="margin:0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000;text-wrap:balance">AI multiplies whatever it lands on.</h2>
+      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:22px"><div style="font-size:11px;font-weight:800;letter-spacing:0.1em;color:#6B5A4D">01</div><h3 style="margin:8px 0 0;font-size:19px;line-height:1.3;font-weight:800;color:#241B14">Processes live in people's heads</h3><p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#241B14">Ask three people how a quotation goes out and you get three answers.</p></div>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:22px"><div style="font-size:11px;font-weight:800;letter-spacing:0.1em;color:#6B5A4D">02</div><h3 style="margin:8px 0 0;font-size:19px;line-height:1.3;font-weight:800;color:#241B14">Data is scattered across Tally, Excel and WhatsApp</h3><p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#241B14">No single place holds the truth about an order, a price or a payment.</p></div>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:22px"><div style="font-size:11px;font-weight:800;letter-spacing:0.1em;color:#6B5A4D">03</div><h3 style="margin:8px 0 0;font-size:19px;line-height:1.3;font-weight:800;color:#241B14">Every decision waits for the founder</h3><p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#241B14">Discounts, dispatch, payments. The business moves at the speed of one phone.</p></div>
+      </div>
+      <p style="margin:26px 0 0;font-size:{{ lead }}px;font-weight:800;color:#241B14">Put AI on top of that and you get faster mess.</p>
+    </div>
+  </section>
+
+  <section style="background:#FFFFFF;border-top:1px solid #EADBC8;border-bottom:1px solid #EADBC8;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">What we check</div>
+      <h2 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Five pillars of AI-readiness</h2>
+      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:14px">
+        <sc-for list="{{ pillarTiles }}" as="t" hint-placeholder-count="5">
+          <div style="background:#FFFAF3;border:1px solid #EADBC8;border-radius:14px;padding:20px">
+            <div style="width:44px;height:44px;border-radius:11px;background:#FDF4E3;border:1px solid #F5A020;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ t.icon }}" stroke="#C24000" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            <h3 style="margin:14px 0 0;font-size:17px;font-weight:800;color:#241B14">{{ t.name }}</h3>
+            <p style="margin:6px 0 0;font-size:13.5px;line-height:1.55;color:#241B14">{{ t.line }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="how" style="background:#FFFAF3;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">How it works</div>
+      <h2 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Three steps. Stop at any one.</h2>
+      <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch">
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+          <div style="{{ t.card }}" style-hover="transform:translateY(-6px);box-shadow:0 16px 36px rgba(36,27,20,0.14)">
+            <div style="display:flex;align-items:center;gap:12px">
+              <svg width="42" height="42" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.2"></circle><path d="{{ t.moon }}" fill="#F5A020"></path></svg>
+              <div><div style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">{{ t.step }}</div><div style="font-size:20px;font-weight:800;color:#C24000;line-height:1.2">{{ t.name }}</div></div>
+            </div>
+            <div style="margin-top:6px;font-size:12px;font-weight:800;color:#B7791F;min-height:16px">{{ t.tag }}</div>
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px;flex:1 1 auto">
+              <div><div style="font-size:10.5px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">You do</div><div style="font-size:14px;line-height:1.55;margin-top:3px">{{ t.does }}</div></div>
+              <div><div style="font-size:10.5px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">You receive</div><div style="font-size:14px;line-height:1.55;margin-top:3px">{{ t.gets }}</div></div>
+              <div style="display:flex;gap:22px;flex-wrap:wrap">
+                <div><div style="font-size:10.5px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Time</div><div style="font-size:14px;font-weight:700;margin-top:3px">{{ t.time }}</div></div>
+                <div><div style="font-size:10.5px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Price</div><div style="font-size:14px;font-weight:800;margin-top:3px">{{ t.price }}</div></div>
+              </div>
+            </div>
+            <button type="button" onClick="{{ t.onClick }}" style="{{ t.btn }}">{{ t.cta }}</button>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="sample" style="background:#FFFFFF;border-top:1px solid #EADBC8;border-bottom:1px solid #EADBC8;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">What you receive</div>
+      <h2 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">A report you can act on Monday</h2>
+      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px">
+        <div>
+          <div style="height:170px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:26px;font-weight:800;color:#C62828;line-height:1">38</span><span style="font-size:10.5px;font-weight:800;color:#C62828">Foundation first</span></div>
+            <div style="height:6px;background:#EADBC8;border-radius:9px;width:100%"></div><div style="height:6px;background:#EADBC8;border-radius:9px;width:88%"></div><div style="height:6px;background:#EADBC8;border-radius:9px;width:94%"></div><div style="height:6px;background:#EADBC8;border-radius:9px;width:60%"></div>
+            <div style="margin-top:auto;font-size:10px;font-weight:800;color:#6B5A4D">Top 3 priorities</div>
+          </div>
+          <div style="margin-top:10px;font-size:15px;font-weight:800">Executive summary</div><div style="font-size:13px;color:#6B5A4D;margin-top:2px;line-height:1.5">Score, band and top three priorities on one page.</div>
+        </div>
+        <div>
+          <div style="height:170px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px;padding:16px;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(7,1fr);gap:3px">
+            <sc-for list="{{ miniHeat }}" as="c" hint-placeholder-count="35"><div style="{{ c.s }}"></div></sc-for>
+          </div>
+          <div style="margin-top:10px;font-size:15px;font-weight:800">Health Scan heat map</div><div style="font-size:13px;color:#6B5A4D;margin-top:2px;line-height:1.5">Seven functions across five pillars, scored 0–4.</div>
+        </div>
+        <div>
+          <div style="height:170px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px;position:relative;overflow:hidden">
+            <div style="position:absolute;left:22px;right:14px;top:12px;bottom:24px;border-left:1.5px solid #6B5A4D;border-bottom:1.5px solid #6B5A4D"></div>
+            <div style="position:absolute;left:66%;top:22px;width:34px;height:34px;border-radius:99px;background:rgba(245,160,32,0.55);border:1.5px solid #B7791F"></div>
+            <div style="position:absolute;left:44%;top:50px;width:26px;height:26px;border-radius:99px;background:rgba(245,160,32,0.55);border:1.5px solid #B7791F"></div>
+            <div style="position:absolute;left:74%;top:78px;width:20px;height:20px;border-radius:99px;background:rgba(245,160,32,0.55);border:1.5px solid #B7791F"></div>
+            <div style="position:absolute;left:24%;top:96px;width:16px;height:16px;border-radius:99px;background:rgba(245,160,32,0.55);border:1.5px solid #B7791F"></div>
+            <div style="position:absolute;left:8px;bottom:6px;font-size:9.5px;font-weight:800;color:#6B5A4D">Impact × feasibility</div>
+          </div>
+          <div style="margin-top:10px;font-size:15px;font-weight:800">AI Opportunity Matrix</div><div style="font-size:13px;color:#6B5A4D;margin-top:2px;line-height:1.5">Each AI use case plotted by impact, feasibility and data readiness.</div>
+        </div>
+        <div>
+          <div style="height:170px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:9px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:800;color:#6B5A4D;width:36px">Day 1</span><div style="height:12px;width:34%;background:#E8650A;border-radius:4px"></div></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:800;color:#6B5A4D;width:36px">Day 30</span><div style="height:12px;width:52%;margin-left:14%;background:#F5A020;border-radius:4px"></div></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:800;color:#6B5A4D;width:36px">Day 60</span><div style="height:12px;width:40%;margin-left:40%;background:#F5A020;border-radius:4px"></div></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:800;color:#6B5A4D;width:36px">Day 90</span><div style="height:12px;width:28%;margin-left:68%;background:#EADBC8;border-radius:4px"></div></div>
+          </div>
+          <div style="margin-top:10px;font-size:15px;font-weight:800">90-day roadmap</div><div style="font-size:13px;color:#6B5A4D;margin-top:2px;line-height:1.5">Three priorities with owners and dates.</div>
+        </div>
+      </div>
+      <div style="margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <button type="button" onClick="{{ act.sampleReport }}" style="{{ outlineBtn }}">View sample report</button>
+        <span style="font-size:12.5px;color:#6B5A4D">Illustrative example · Kavya Industrial Supplies, Rajkot</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FFFAF3;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px">
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px">
+        <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#C24000">Who it is for</h2>
+        <p style="margin:12px 0 0;font-size:15.5px;line-height:1.6;max-width:52ch">Businesses with ₹1–25 crore turnover and 8–80 people, in manufacturing, trading or services.</p>
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span style="padding:5px 11px;background:#EAF4EB;border-radius:999px;font-size:12.5px;font-weight:800;color:#2E7D32">Manufacturing</span><span style="padding:5px 11px;background:#EAF4EB;border-radius:999px;font-size:12.5px;font-weight:800;color:#2E7D32">Trading</span><span style="padding:5px 11px;background:#EAF4EB;border-radius:999px;font-size:12.5px;font-weight:800;color:#2E7D32">Services</span>
+        </div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:26px">
+        <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.015em;color:#C24000">Not for</h2>
+        <ul style="margin:12px 0 0;padding-left:20px;font-size:15.5px;line-height:1.7;max-width:52ch">
+          <li>Businesses that only want a chatbot.</li>
+          <li>Founders not willing to involve their team.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="about" style="background:#15120D;padding:{{ secPad }};color:#FFFAF3">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:30px;align-items:center">
+      <div>
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F5A020">About Amalthea</div>
+        <h2 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#FFFFFF;text-wrap:balance">Founder-led, based in Ahmedabad.</h2>
+        <p style="margin:14px 0 0;font-size:16px;line-height:1.65;color:#EADBC8;max-width:54ch">We audit and systemise Indian MSMEs — business process audit first, then implementation. More than 100 projects in the last three years.</p>
+      </div>
+      <div style="padding:26px;border:1px solid #6B5A4D;border-radius:14px;background:rgba(255,250,243,0.04)">
+        <svg width="30" height="30" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.3"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg>
+        <div style="margin-top:12px;font-size:{{ quote }}px;line-height:1.35;font-weight:800;color:#FFFFFF;text-wrap:balance">No income promises — only evidence you can see.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FFFFFF;border-bottom:1px solid #EADBC8;padding:{{ secPad }}">
+    <div style="max-width:1240px;margin:0 auto">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Your data</div>
+      <h2 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Yours. Visible only to who you choose.</h2>
+      <div style="margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px">
+        <div style="padding:20px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px"><div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">What we collect</div><p style="margin:8px 0 0;font-size:14px;line-height:1.6">Your contact details, business profile, your answers and the files you upload.</p></div>
+        <div style="padding:20px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px"><div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Who sees it</div><p style="margin:8px 0 0;font-size:14px;line-height:1.6">You, the team members you assign, and the Amalthea audit team. No one else.</p></div>
+        <div style="padding:20px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px"><div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Where it is stored</div><p style="margin:8px 0 0;font-size:14px;line-height:1.6">Encrypted cloud storage. Region: India (to be confirmed).</p></div>
+        <div style="padding:20px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:12px"><div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6B5A4D">Deletion</div><p style="margin:8px 0 0;font-size:14px;line-height:1.6">Ask us and we delete your data. That is your right under the DPDP Act, 2023.</p></div>
+      </div>
+      <a href="#privacy" onClick="{{ act.privacy }}" style="display:inline-flex;align-items:center;min-height:44px;margin-top:14px;font-size:14.5px;font-weight:700;color:#C24000;text-decoration:underline;text-underline-offset:3px">Read the privacy notice</a>
+    </div>
+  </section>
+
+  <section data-sec="faq" style="background:#FFFAF3;padding:{{ secPad }}">
+    <div style="max-width:860px;margin:0 auto">
+      <h2 style="margin:0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Questions founders ask</h2>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+          <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;min-height:56px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:transparent;border:none;cursor:pointer;text-align:left;font-family:Mulish,sans-serif;font-size:16px;font-weight:800;color:#241B14">
+              <span>{{ f.q }}</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" style="{{ f.chev }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <sc-if value="{{ f.open }}"><div style="padding:0 18px 18px;font-size:14.5px;line-height:1.65;color:#241B14;max-width:64ch">{{ f.a }}</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F5A020;padding:{{ ctaPad }}">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap">
+      <div>
+        <h2 style="margin:0;font-size:{{ h2 }}px;line-height:1.1;font-weight:800;letter-spacing:-0.02em;color:#15120D">Find out in 10 minutes</h2>
+        <p style="margin:8px 0 0;font-size:15px;font-weight:600;color:#241B14">Free · No card needed · Your data stays private</p>
+      </div>
+      <button type="button" onClick="{{ act.start }}" style="{{ ctaBtn }}">Take the 10-minute Scorecard</button>
+    </div>
+  </section>
+
+  <footer style="background:#15120D;padding:{{ footPad }};color:#EADBC8">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px;align-items:start">
+      <div>
+        <div style="display:flex;align-items:center;gap:9px"><svg width="26" height="26" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#F5A020" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><span style="font-size:16px;font-weight:800;color:#FFFAF3">Amalthea Consultancy</span></div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.6">Ahmedabad, Gujarat</div>
+      </div>
+      <div style="font-size:13.5px;line-height:1.9">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#F5A020;margin-bottom:4px">Contact</div>
+        <div>hello@amalthea.example</div><div>+91 00000 00000</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#F5A020;margin-bottom:2px">Legal</div>
+        <a href="#privacy" onClick="{{ act.privacy }}" style="min-height:44px;display:flex;align-items:center;font-size:13.5px;font-weight:600;color:#FFFAF3;text-decoration:underline;text-underline-offset:3px">Privacy notice · DPDP Act, 2023</a>
+        <a href="#terms" onClick="{{ act.terms }}" style="min-height:44px;display:flex;align-items:center;font-size:13.5px;font-weight:600;color:#FFFAF3;text-decoration:underline;text-underline-offset:3px">Terms of use</a>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ mobileBar }}">
+  <div style="position:sticky;bottom:0;z-index:30;background:#FFFFFF;border-top:1px solid #EADBC8;padding:10px 16px;box-shadow:0 -6px 18px rgba(36,27,20,0.10)">
+    <button type="button" onClick="{{ act.start }}" style="width:100%;min-height:52px;background:#E8650A;color:#FFFFFF;border:none;border-radius:10px;font-family:Mulish,sans-serif;font-size:15.5px;font-weight:800;cursor:pointer">Check my AI-readiness — free</button>
+  </div>
+  </sc-if>
+
+  <div style="position:sticky;bottom:0;height:0;z-index:50">
+    <sc-if value="{{ toast }}">
+    <div style="position:absolute;left:{{ toastX }}px;right:{{ toastX }}px;bottom:{{ toastB }}px;display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#FFFFFF;border:1px solid #EADBC8;border-left:4px solid #E8650A;border-radius:10px;box-shadow:0 8px 24px rgba(36,27,20,0.2);max-width:460px;margin:0 auto">
+      <svg width="18" height="18" viewBox="0 0 20 20" style="flex:none;margin-top:1px" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.6"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+      <div style="font-size:13px;line-height:1.5;font-weight:700;color:#241B14">{{ toast }}</div>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { stuck: false, faq: 0, toast: "", menu: false };
+  rootEl = null;
+  timer = null;
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => this.setState({ toast: "" }), 3200);
+  }
+
+  renderVals() {
+    const m = !!this.props.mobile;
+    const s = this.state;
+    const scrollTo = (k) => () => {
+      const r = this.rootEl;
+      if (!r) return;
+      this.setState({ menu: false });
+      const el = r.querySelector('[data-sec="' + k + '"]');
+      if (el) r.scrollTo({ top: el.offsetTop - (m ? 56 : 64), behavior: "smooth" });
+    };
+    const start = () => (this.props.onStart ? this.props.onStart() : this.flash("Opens S2.1 · Scorecard intro"));
+    const act = {
+      top: scrollTo("top"), how: scrollTo("how"), sample: scrollTo("sample"), about: scrollTo("about"), faq: scrollTo("faq"),
+      login: () => this.flash("Opens Log in (Stage 2)"),
+      start,
+      menu: () => this.setState({ menu: !s.menu }),
+      sampleReport: () => this.flash("Opens S10.5 · Sample report, illustrative mode (Prompt 10)"),
+      privacy: () => this.flash("Opens the privacy notice · DPDP Act, 2023"),
+      terms: () => this.flash("Opens Terms of use")
+    };
+
+    const btn = "font-family:Mulish,sans-serif;font-weight:800;cursor:pointer;border-radius:10px;";
+    const stuckBar = !m && s.stuck;
+    const barBtn = btn + "flex:none;min-height:44px;padding:0 18px;font-size:14px;border:none;color:#FFFFFF;transition:all .2s;" +
+      (stuckBar ? "background:#F5A020;color:#15120D;box-shadow:0 0 0 4px rgba(245,160,32,0.28)" : "background:#E8650A");
+    const heroBtn = btn + "min-height:56px;padding:0 28px;font-size:17px;border:none;background:#E8650A;color:#FFFFFF;" + (m ? "width:100%;" : "");
+    const ctaBtn = btn + "min-height:56px;padding:0 28px;font-size:17px;border:none;background:#15120D;color:#FFFFFF;" + (m ? "width:100%;" : "");
+    const outlineBtn = btn + "min-height:52px;padding:0 24px;font-size:15.5px;background:#FFFFFF;color:#C24000;border:2px solid #E8650A;" + (m ? "width:100%;" : "");
+
+    const pillars = [["Ownership", 9], ["Process", 7], ["Data", 5], ["Numbers and Control", 8], ["People and Policy", 9]].map(([name, v]) => ({
+      name, label: v + "/20",
+      fill: "width:" + (v / 20) * 100 + "%;height:100%;border-radius:99px;background:" + (v >= 14 ? "#2E7D32" : v >= 8 ? "#F5A020" : "#C62828")
+    }));
+
+    const pillarTiles = [
+      ["Ownership", "Someone must decide where AI may act and where a human approves.", "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4zM9 12l2.2 2.2L15.5 10"],
+      ["Process", "AI can only follow steps that are written down.", "M5 5h5v5H5zM14 14h5v5h-5zM10 7.5h4a2 2 0 012 2V14"],
+      ["Data", "Clean, structured records in one place. Not five.", "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"],
+      ["Numbers and Control", "Reviews that check results, including what AI produces.", "M4 20V10M10 20V4M16 20v-7M22 20H2"],
+      ["People and Policy", "Skills, an AI usage policy and data security.", "M9 11a3 3 0 100-6 3 3 0 000 6zM3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 6.5a3 3 0 010 5.5M18 14.8c1.8.7 3 2.4 3 5.2"]
+    ].map(([name, line, icon]) => ({ name, line, icon }));
+
+    const cardBase = "display:flex;flex-direction:column;border-radius:16px;padding:24px;transition:transform .18s ease, box-shadow .18s ease;";
+    const btnBase = btn + "margin-top:20px;min-height:52px;width:100%;font-size:15px;";
+    const tiers = [
+      { step: "Step 1", name: "Free Scorecard", tag: "", moon: "M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z",
+        does: "Answer 10 questions about how your business runs.", gets: "An instant AI-written report with your score and band.",
+        time: "10 minutes", price: "Free", cta: "Take the Scorecard", onClick: start,
+        card: cardBase + "background:#FFFFFF;border:1px solid #EADBC8;box-shadow:0 2px 8px rgba(36,27,20,0.05)",
+        btn: btnBase + "background:#FFFFFF;color:#C24000;border:2px solid #E8650A" },
+      { step: "Step 2", name: "Self-Audit", tag: "The core product", moon: "M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z",
+        does: "You and your team answer the guided question bank, walk one real order and upload a data pack.",
+        gets: "A Self-Audit Report: Health Scan heat map, AI Opportunity Matrix and top priorities.",
+        time: "Guided, 2–3 weeks", price: "₹— (to be confirmed)", cta: "Request Self-Audit access", onClick: () => this.flash("Opens plan request (Stage 2)"),
+        card: cardBase + "background:#FFFFFF;border:2px solid #E8650A;box-shadow:0 14px 34px rgba(232,101,10,0.16);" + (m ? "" : "transform:translateY(-10px);padding-top:30px"),
+        btn: btnBase + "background:#E8650A;color:#FFFFFF;border:none" },
+      { step: "Step 3", name: "Consultant-led Audit", tag: "", moon: "M10 1.5 A8.5 8.5 0 1 1 9.99 1.5 Z",
+        does: "Everything in Self-Audit, plus a site visit and working sessions with an Amalthea consultant.",
+        gets: "A consultant-approved report, adjusted scores with reasons and a 90-day roadmap.",
+        time: "With Amalthea, 3–4 weeks", price: "₹— (to be confirmed)", cta: "Talk to a consultant", onClick: () => this.flash("Opens consultation request (Stage 2)"),
+        card: cardBase + "background:#FFFFFF;border:1px solid #EADBC8;box-shadow:0 2px 8px rgba(36,27,20,0.05)",
+        btn: btnBase + "background:#FFFFFF;color:#C24000;border:2px solid #E8650A" }
+    ];
+
+    const heatVals = [[1,1,1,2,2],[0,0,0,0,1],[2,1,1,1,2],[1,1,1,1,1],[2,2,2,2,2],[1,0,0,0,1],[2,2,1,1,2]];
+    const bg = ["#FADBD8", "#FBE4CC", "#FDF4E3", "#EAF4EB", "#CDE7CF"];
+    const miniHeat = [];
+    heatVals.forEach(r => r.forEach(v => miniHeat.push({ s: "border-radius:3px;background:" + bg[v] })));
+
+    const faqData = [
+      ["How long does it take?", "The Scorecard takes 10 minutes. A Self-Audit usually runs 2–3 weeks, because your team answers in short sessions. A Consultant-led Audit runs 3–4 weeks. You can save and resume at any point."],
+      ["Who in my team fills it in?", "You answer the founder questions. You then assign sections to your team, for example sales to your sales head or accounts to your accounts executive. Each person sees only their own sections."],
+      ["Is my data safe?", "Your data is visible only to you, the people you assign and the Amalthea audit team. You can ask us to delete it at any time. See the privacy notice for details under the DPDP Act, 2023."],
+      ["Which software do I need?", "None to start. If you use Tally, Excel or WhatsApp, you can upload exports from them in the data pack. A phone is enough for most answers."],
+      ["What is the difference between Self-Audit and Consultant-led Audit?", "In a Self-Audit, AI analyses your answers and files and writes the report. In a Consultant-led Audit, an Amalthea consultant also visits, reviews the AI draft, adjusts scores with reasons and approves the final report and roadmap."],
+      ["What happens after the report?", "You get a 90-day roadmap with your top three priorities. You can act on it yourself, or work with Amalthea on a six-month implementation. A second audit round later shows what has improved."]
+    ];
+    const faqs = faqData.map(([q, a], i) => {
+      const open = s.faq === i;
+      return { q, a, open, toggle: () => this.setState({ faq: open ? -1 : i }),
+        chev: "flex:none;transition:transform .15s;transform:rotate(" + (open ? 180 : 0) + "deg)" };
+    });
+
+    return {
+      m, notM: !m, act, pillars, pillarTiles, tiers, miniHeat, faqs, barBtn, heroBtn, ctaBtn, outlineBtn,
+      setRoot: (el) => { this.rootEl = el; },
+      onScroll: (e) => { const st = e.target.scrollTop > (m ? 520 : 600); if (st !== s.stuck) this.setState({ stuck: st }); },
+      frameH: m ? 844 : 900, frameR: m ? 26 : 12,
+      px: m ? 18 : 48, barH: m ? 60 : 68,
+      heroPad: m ? "34px 20px 40px" : "72px 48px 84px", heroGap: m ? 34 : 56,
+      secPad: m ? "48px 20px" : "84px 48px", ctaPad: m ? "44px 20px" : "64px 48px", footPad: m ? "36px 20px 44px" : "48px 48px",
+      h1: m ? 40 : 62, h2: m ? 29 : 40, lead: m ? 17 : 20, quote: m ? 22 : 28,
+      cardPad: m ? "0" : "6px 0 6px 12px", cardTilt: m ? "none" : "rotate(1.6deg)",
+      menuOpen: m && s.menu,
+      mobileBar: m && s.stuck,
+      toast: s.toast, toastX: m ? 14 : 24, toastB: m && s.stuck ? 84 : 22
+    };
+  }
+}
+</script>
+</body>
+</html>

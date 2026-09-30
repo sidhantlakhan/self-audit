@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div ref="{{ setRoot }}" style="{{ rootStyle }}">
+
+  <sc-if value="{{ showChrome }}">
+  <header style="position:sticky;top:0;z-index:30;background:#FFFFFF;border-bottom:1px solid #EADBC8;padding:0 {{ px }}px;height:{{ barH }}px;display:flex;align-items:center;gap:12px">
+    <svg width="26" height="26" viewBox="0 0 20 20" aria-hidden="true" style="flex:none"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg>
+    <div style="flex:1 1 0;min-width:0"><div style="font-size:14px;font-weight:800;color:#241B14;line-height:1.2">AI-Readiness Scorecard</div><div style="font-size:11px;font-weight:600;color:#6B5A4D">{{ crumb }}</div></div>
+    <sc-if value="{{ showSaved }}"><span style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:#EAF4EB;border-radius:999px;font-size:11.5px;font-weight:800;color:#2E7D32;flex:none"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Saved</span></sc-if>
+    <sc-if value="{{ notM }}"><button type="button" onClick="{{ act.exit }}" style="min-height:44px;padding:0 12px;background:transparent;border:none;font-family:Mulish,sans-serif;font-size:13.5px;font-weight:700;color:#C24000;cursor:pointer">Save and exit</button></sc-if>
+  </header>
+  </sc-if>
+
+  <sc-if value="{{ resume }}">
+  <div style="background:#FDF4E3;border-bottom:1px solid #F5A020;padding:14px {{ px }}px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <svg width="26" height="26" viewBox="0 0 20 20" aria-hidden="true" style="flex:none"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#B7791F" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z" fill="#F5A020"></path></svg>
+    <div style="flex:1 1 220px;min-width:0"><div style="font-size:15px;font-weight:800;color:#241B14">Pick up where you left off — 14 of 25 answered</div><div style="font-size:12.5px;color:#6B5A4D;margin-top:2px">Saved on this device 2 days ago.</div></div>
+    <div style="display:flex;gap:8px"><button type="button" onClick="{{ act.dismissResume }}" style="{{ btnS }}">Continue</button><button type="button" onClick="{{ act.startOver }}" style="min-height:44px;padding:0 12px;background:transparent;border:none;font-family:Mulish,sans-serif;font-size:13.5px;font-weight:700;color:#C24000;cursor:pointer">Start over</button></div>
+  </div>
+  </sc-if>
+
+  <div style="max-width:{{ maxW }}px;margin:0 auto;padding:{{ pad }}">
+
+    <sc-if value="{{ isStart }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:{{ gap }}px;align-items:start">
+      <div>
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Free · Public · Instant report</div>
+        <h1 style="margin:10px 0 0;font-size:{{ h1 }}px;line-height:1.08;font-weight:800;letter-spacing:-0.028em;color:#C24000;text-wrap:balance">How AI-ready is your business?</h1>
+        <div style="margin-top:14px;display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:999px;font-size:14px;font-weight:800;color:#241B14">10 minutes · 25 questions · free</div>
+        <sc-if value="{{ notRate }}">
+        <div style="margin-top:26px"><button type="button" onClick="{{ act.start }}" style="{{ btnPFull }}">Start</button></div>
+        </sc-if>
+        <sc-if value="{{ rateLimit }}">
+        <div style="margin-top:24px;padding:18px;background:#FDF4E3;border:1px solid #B7791F;border-radius:12px">
+          <div style="font-size:16px;font-weight:800;color:#241B14">You have reached the limit for this device</div>
+          <p style="margin:6px 0 0;font-size:14px;line-height:1.6;color:#241B14;max-width:52ch">The Scorecard has been started several times from this device today. Please try again tomorrow. Your earlier answers are saved.</p>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button type="button" onClick="{{ act.toastWrite }}" style="{{ btnS }}">Write to Amalthea</button><button type="button" disabled="true" style="min-height:44px;padding:0 18px;background:#EADBC8;color:#6B5A4D;border:none;border-radius:10px;font-family:Mulish,sans-serif;font-size:14px;font-weight:800;cursor:not-allowed">Start (available tomorrow)</button></div>
+        </div>
+        </sc-if>
+        <p style="margin:18px 0 0;font-size:12.5px;line-height:1.6;color:#6B5A4D;max-width:56ch">Your answers are visible only to you and the Amalthea audit team. <a href="#privacy" onClick="{{ act.privacy }}">Privacy notice · DPDP Act, 2023</a></p>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:16px;padding:24px">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">What you get</div>
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ gets }}" as="g" hint-placeholder-count="5">
+            <div style="display:flex;gap:12px;align-items:flex-start"><svg width="24" height="24" viewBox="0 0 20 20" aria-hidden="true" style="flex:none;margin-top:1px"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.3"></circle><path d="{{ g.moon }}" fill="#F5A020"></path></svg><div><div style="font-size:15.5px;font-weight:800;color:#241B14">{{ g.t }}</div><div style="font-size:13px;line-height:1.5;color:#6B5A4D;margin-top:1px">{{ g.d }}</div></div></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isDet }}">
+    <div>
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Step 1 of 3 · Your details</div>
+      <h1 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Tell us who you are</h1>
+      <p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#6B5A4D;max-width:56ch">We use this to send your report and to compare you with similar businesses. Nothing here is shown to anyone else.</p>
+      <div style="margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="9">
+          <div>
+            <label style="display:block;font-size:13px;font-weight:800;color:#241B14;margin-bottom:6px">{{ f.label }}</label>
+            <sc-if value="{{ f.isText }}"><input type="text" value="{{ f.value }}" placeholder="{{ f.ph }}" onChange="{{ f.onChange }}" style="{{ f.inStyle }}"></sc-if>
+            <sc-if value="{{ f.isWa }}"><div style="display:flex;gap:8px"><span style="flex:none;min-height:48px;display:flex;align-items:center;padding:0 12px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:10px;font-size:15px;font-weight:800;color:#241B14">+91</span><input type="tel" value="{{ f.value }}" placeholder="{{ f.ph }}" onChange="{{ f.onChange }}" style="{{ f.inStyle }}"></div></sc-if>
+            <sc-if value="{{ f.isSel }}"><select value="{{ f.value }}" onChange="{{ f.onChange }}" style="{{ f.inStyle }}"><option value="">Select</option><sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for></select></sc-if>
+            <sc-if value="{{ f.err }}"><div style="font-size:12.5px;font-weight:700;color:#C62828;margin-top:5px">{{ f.errText }}</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:12px;align-items:flex-start">
+        <button type="button" role="checkbox" aria-checked="{{ det.consent }}" onClick="{{ act.consent }}" style="{{ consentBox }}"><sc-if value="{{ det.consent }}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if></button>
+        <div style="padding-top:2px"><div style="font-size:14px;line-height:1.5;font-weight:600;color:#241B14">I agree that Amalthea may contact me about my results. <a href="#privacy" onClick="{{ act.privacy }}">Privacy notice</a></div><sc-if value="{{ errConsent }}"><div style="font-size:12.5px;font-weight:700;color:#C62828;margin-top:4px">Tick this to get your report.</div></sc-if></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isPil }}">
+    <div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:4px;margin-bottom:18px">
+        <sc-for list="{{ stepper }}" as="st" hint-placeholder-count="5">
+          <button type="button" onClick="{{ st.click }}" aria-label="{{ st.name }}" style="flex:1 1 0;min-width:0;min-height:44px;background:transparent;border:none;padding:2px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;font-family:Mulish,sans-serif">
+            <svg width="30" height="30" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="#FFFFFF" stroke="{{ st.stroke }}" stroke-width="1.4"></circle><path d="{{ st.path }}" fill="#F5A020"></path></svg>
+            <span style="{{ st.lab }}">{{ st.name }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Pillar {{ pilNo }} of 5</div>
+      <h1 style="margin:6px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">{{ pilName }}</h1>
+      <p style="margin:6px 0 0;font-size:13.5px;line-height:1.5;color:#6B5A4D;max-width:60ch">{{ pilBlurb }}</p>
+      <div style="margin-top:6px;font-size:12px;font-weight:700;color:#6B5A4D">0 Never · 1 Rarely · 2 Sometimes · 3 Mostly · 4 Always</div>
+      <sc-if value="{{ notM }}"><button type="button" onClick="{{ act.fill }}" style="margin-top:6px;min-height:36px;padding:0;background:transparent;border:none;font-family:Mulish,sans-serif;font-size:12.5px;font-weight:700;color:#C24000;text-decoration:underline;cursor:pointer">Prototype helper: fill with sample answers</button></sc-if>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ items }}" as="it" hint-placeholder-count="5">
+          <div style="{{ it.box }}">
+            <div style="font-size:15px;line-height:1.4;font-weight:700;color:#241B14;text-wrap:pretty"><span style="color:#6B5A4D;font-weight:800">{{ it.no }}.</span> {{ it.text }}</div>
+            <div style="margin-top:10px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px">
+              <sc-for list="{{ it.chips }}" as="c" hint-placeholder-count="5">
+                <button type="button" onClick="{{ c.click }}" aria-pressed="{{ c.on }}" style="{{ c.style }}"><span style="font-size:17px;font-weight:800;line-height:1">{{ c.n }}</span><span style="{{ c.lab }}">{{ c.label }}</span></button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ it.missing }}"><div style="font-size:12.5px;font-weight:800;color:#C62828;margin-top:8px">Pick one to continue.</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isOpen }}">
+    <div>
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Last step · 3 questions</div>
+      <h1 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">In your own words</h1>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:18px">
+          <div style="font-size:15.5px;font-weight:800;color:#241B14">a. What is the biggest bottleneck in your business today?</div>
+          <textarea value="{{ t1 }}" onChange="{{ act.setT1 }}" maxlength="500" style="width:100%;margin-top:10px;min-height:96px;padding:12px 13px;border:1px solid #EADBC8;border-radius:10px;font-family:Mulish,sans-serif;font-size:15px;line-height:1.5;color:#241B14;resize:vertical"></textarea>
+          <div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button type="button" onClick="{{ act.rec1 }}" style="{{ rec1Style }}">{{ rec1Label }}</button>
+            <sc-if value="{{ vo1 }}"><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></sc-if>
+            <span style="margin-left:auto;font-size:12px;font-weight:700;color:#6B5A4D">{{ t1Count }}/500</span>
+          </div>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:18px">
+          <div style="font-size:15.5px;font-weight:800;color:#241B14">b. Which software do you use?</div>
+          <div style="font-size:12.5px;color:#6B5A4D;margin-top:2px">Pick all that apply.</div>
+          <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ swChips }}" as="c" hint-placeholder-count="9"><button type="button" onClick="{{ c.click }}" aria-pressed="{{ c.on }}" style="{{ c.style }}">{{ c.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:18px">
+          <div style="font-size:15.5px;font-weight:800;color:#241B14">c. Name one task you would most like to automate</div>
+          <textarea value="{{ t3 }}" onChange="{{ act.setT3 }}" maxlength="500" style="width:100%;margin-top:10px;min-height:76px;padding:12px 13px;border:1px solid #EADBC8;border-radius:10px;font-family:Mulish,sans-serif;font-size:15px;line-height:1.5;color:#241B14;resize:vertical"></textarea>
+          <div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button type="button" onClick="{{ act.rec3 }}" style="{{ rec3Style }}">{{ rec3Label }}</button>
+            <sc-if value="{{ vo3 }}"><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isRev }}">
+    <div>
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Review</div>
+      <h1 style="margin:8px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">Check your answers</h1>
+      <p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#6B5A4D">{{ revLine }}</p>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ review }}" as="r" hint-placeholder-count="5">
+          <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:12px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px">
+              <button type="button" onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}" style="flex:1 1 0;min-width:0;min-height:52px;padding:8px 10px;display:flex;align-items:center;gap:12px;background:transparent;border:none;cursor:pointer;text-align:left;font-family:Mulish,sans-serif">
+                <svg width="16" height="16" viewBox="0 0 18 18" style="{{ r.chev }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span style="flex:1 1 0;min-width:0;font-size:15px;font-weight:800;color:#241B14">{{ r.name }}</span>
+                <span style="{{ r.badge }}">{{ r.status }}</span>
+              </button>
+              <button type="button" onClick="{{ r.edit }}" style="flex:none;min-height:44px;padding:0 10px;background:transparent;border:none;font-family:Mulish,sans-serif;font-size:13.5px;font-weight:800;color:#C24000;text-decoration:underline;cursor:pointer">Edit</button>
+            </div>
+            <sc-if value="{{ r.open }}">
+            <div style="padding:2px 16px 14px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #EADBC8">
+              <sc-for list="{{ r.rows }}" as="q" hint-placeholder-count="5"><div style="display:flex;gap:10px;align-items:baseline;padding-top:8px"><span style="flex:1 1 0;min-width:0;font-size:13px;line-height:1.45;color:#241B14">{{ q.text }}</span><span style="{{ q.style }}">{{ q.label }}</span></div></sc-for>
+            </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:10px"><div style="flex:1 1 0;min-width:0"><div style="font-size:15px;font-weight:800;color:#241B14">Your details and 3 open answers</div><div style="font-size:12.5px;color:#6B5A4D;margin-top:2px">{{ revDetLine }}</div></div><button type="button" onClick="{{ act.editDet }}" style="flex:none;min-height:44px;padding:0 10px;background:transparent;border:none;font-family:Mulish,sans-serif;font-size:13.5px;font-weight:800;color:#C24000;text-decoration:underline;cursor:pointer">Edit</button></div>
+      </div>
+      <div style="margin-top:14px;font-size:12px;line-height:1.5;color:#6B5A4D">Your score is calculated by fixed rules. AI only writes the explanation.</div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isGen }}">
+    <div style="max-width:520px;margin:0 auto;text-align:center">
+      <svg width="64" height="64" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.1"></circle><path d="{{ genMoon }}" fill="#F5A020"></path></svg>
+      <h1 style="margin:14px 0 0;font-size:{{ h2 }}px;line-height:1.12;font-weight:800;letter-spacing:-0.02em;color:#C24000">{{ genTitle }}</h1>
+      <p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#6B5A4D">{{ genSub }}</p>
+      <sc-if value="{{ notNet }}">
+      <div style="margin-top:22px;background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;padding:8px 18px;text-align:left">
+        <sc-for list="{{ genSteps }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:{{ g.line }}">
+            <div style="{{ g.dot }}"><sc-if value="{{ g.done }}"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FFFFFF" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ g.active }}"><svg width="16" height="16" viewBox="0 0 34 34" style="animation:am-spin 1s linear infinite" aria-hidden="true"><circle cx="17" cy="17" r="13" fill="none" stroke="#EADBC8" stroke-width="4"></circle><path d="M17 4a13 13 0 0113 13" fill="none" stroke="#E8650A" stroke-width="4" stroke-linecap="round"></path></svg></sc-if></div>
+            <span style="{{ g.text }}">{{ g.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:16px 0 0;font-size:13px;line-height:1.55;color:#6B5A4D">Your score is calculated by fixed rules. AI only writes the explanation.</p>
+      </sc-if>
+      <sc-if value="{{ netErr }}">
+      <div style="margin-top:22px;padding:22px;background:#FADBD8;border:1px solid #C62828;border-radius:14px;text-align:left">
+        <div style="font-size:16px;font-weight:800;color:#241B14">We could not reach the server</div>
+        <p style="margin:6px 0 0;font-size:14px;line-height:1.6;color:#241B14">Check your internet connection. Your answers are saved. Nothing is lost.</p>
+        <button type="button" onClick="{{ act.retry }}" style="{{ btnRetry }}">Retry</button>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isRes }}">
+    <div style="display:flex;flex-direction:column;gap:{{ gap2 }}px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div style="flex:1 1 240px;min-width:0"><div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6B5A4D">Your AI-Readiness Scorecard</div><div style="font-size:17px;font-weight:800;color:#241B14;margin-top:3px">Kavya Industrial Supplies · Rajkot</div></div>
+        <span style="padding:5px 11px;background:#FDF4E3;border:1px solid #F5A020;border-radius:999px;font-size:11.5px;font-weight:800;color:#B7791F">Illustrative example</span>
+        <sc-if value="{{ notM }}"><button type="button" onClick="{{ act.pdf }}" style="{{ btnS }}">Download PDF</button></sc-if>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px">
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:16px;padding:22px;text-align:center">
+          <svg width="250" height="146" viewBox="0 0 220 128" role="img" aria-label="Score 38 out of 100, Foundation first" style="max-width:100%">
+            <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#EADBC8" stroke-width="16" stroke-linecap="round"></path>
+            <path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#C62828" stroke-width="16" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="175.3"></path>
+            <text x="110" y="98" text-anchor="middle" font-family="Mulish" font-size="50" font-weight="800" fill="#241B14">38</text>
+            <text x="110" y="120" text-anchor="middle" font-family="Mulish" font-size="12" font-weight="700" fill="#6B5A4D">out of 100</text>
+          </svg>
+          <div style="display:inline-flex;align-items:center;gap:9px;margin-top:6px;padding:8px 14px;background:#FADBD8;border:1px solid #C62828;border-radius:999px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C62828" stroke-width="1.6"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z" fill="#C62828"></path></svg><span style="font-size:14px;font-weight:800;color:#C62828">Foundation first</span></div>
+          <div style="margin-top:10px;font-size:12px;line-height:1.5;color:#6B5A4D">Bands: 0–40 Foundation first · 41–70 Getting ready · 71–100 AI-ready</div>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:16px;padding:22px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D;margin-bottom:14px">Five pillars · each out of 20</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{ bars }}" as="p" hint-placeholder-count="5">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:5px"><span style="font-size:14px;font-weight:800;color:#241B14">{{ p.name }}<sc-if value="{{ p.weak }}"><span style="margin-left:8px;padding:2px 7px;background:#FADBD8;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#C62828">Weakest</span></sc-if></span><span style="font-size:14px;font-weight:800;color:#C24000;font-variant-numeric:tabular-nums">{{ p.label }}</span></div>
+                <div style="height:10px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="{{ p.fill }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12.5px;line-height:1.5;color:#6B5A4D">Scores are calculated by fixed rules. AI only writes the explanations and recommendations.</div>
+
+      <sc-if value="{{ aiDown }}">
+      <div style="background:#FDF4E3;border:1px solid #B7791F;border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start">
+        <svg width="26" height="26" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#B7791F" stroke-width="1.5"></circle><path d="M8 4.5v4.2M8 11.2v.1" stroke="#B7791F" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        <div><div style="font-size:16px;font-weight:800;color:#241B14">Your detailed report is on its way on WhatsApp</div><p style="margin:6px 0 0;font-size:14px;line-height:1.6;color:#241B14;max-width:60ch">Our AI writer is busy right now. Your score above is final. We will send the full report with your gaps, AI use cases and first actions to WhatsApp +91 98••• ••210 within 30 minutes.</p></div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ notAi }}">
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;overflow:hidden">
+        <button type="button" onClick="{{ tg.meaning }}" style="{{ hdrStyle }}"><span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:18px;font-weight:800;color:#C24000">What your score means</span><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></span><svg width="18" height="18" viewBox="0 0 18 18" style="{{ chev.meaning }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <sc-if value="{{ open.meaning }}"><div style="padding:0 20px 20px"><p style="margin:0;font-size:15.5px;line-height:1.7;color:#241B14;max-width:68ch;text-wrap:pretty">Kavya runs on Kiran's time and memory. Data sits across Tally, Excel and WhatsApp, and most decisions wait for him. Before AI can help, three foundations are needed: written limits for routine decisions, a few core SOPs, and one clean customer and item list.</p></div></sc-if>
+      </div>
+
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;overflow:hidden">
+        <button type="button" onClick="{{ tg.gaps }}" style="{{ hdrStyle }}"><span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:18px;font-weight:800;color:#C24000">Your three biggest gaps</span><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></span><svg width="18" height="18" viewBox="0 0 18 18" style="{{ chev.gaps }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <sc-if value="{{ open.gaps }}"><div style="padding:0 20px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px">
+          <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="3"><div style="border:1px solid #EADBC8;border-radius:12px;padding:16px;background:#FFFAF3"><div style="display:flex;gap:8px;align-items:center"><span style="padding:3px 8px;background:#FADBD8;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;color:#C62828">{{ g.pillar }} · {{ g.score }}/20</span></div><div style="margin-top:9px;font-size:16px;font-weight:800;line-height:1.35;color:#241B14">{{ g.gap }}</div><div style="margin-top:6px;font-size:13.5px;line-height:1.6;color:#241B14"><strong>Why it matters:</strong> {{ g.why }}</div></div></sc-for>
+        </div></sc-if>
+      </div>
+
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;overflow:hidden">
+        <button type="button" onClick="{{ tg.cases }}" style="{{ hdrStyle }}"><span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:18px;font-weight:800;color:#C24000">Three AI use cases that fit your business</span><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></span><svg width="18" height="18" viewBox="0 0 18 18" style="{{ chev.cases }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <sc-if value="{{ open.cases }}"><div style="padding:0 20px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px">
+          <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3"><div style="border:1px solid #EADBC8;border-radius:12px;padding:16px;background:#FFFAF3;display:flex;flex-direction:column"><div style="font-size:16px;font-weight:800;line-height:1.35;color:#241B14">{{ c.name }}</div><div style="margin-top:8px;font-size:13.5px;line-height:1.6;color:#241B14;flex:1 1 auto"><strong>Must exist first:</strong> {{ c.first }}</div><div style="margin-top:12px"><span style="{{ c.effStyle }}">Effort: {{ c.effort }}</span></div></div></sc-for>
+        </div></sc-if>
+      </div>
+
+      <div style="background:#FFFFFF;border:1px solid #EADBC8;border-radius:14px;overflow:hidden">
+        <button type="button" onClick="{{ tg.actions }}" style="{{ hdrStyle }}"><span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:18px;font-weight:800;color:#C24000">Your first three actions</span><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></span><svg width="18" height="18" viewBox="0 0 18 18" style="{{ chev.actions }}" aria-hidden="true"><path d="M4 7l5 5 5-5" stroke="#C24000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <sc-if value="{{ open.actions }}"><div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ actions }}" as="a" hint-placeholder-count="3"><button type="button" role="checkbox" aria-checked="{{ a.on }}" onClick="{{ a.click }}" style="display:flex;gap:12px;align-items:flex-start;text-align:left;min-height:52px;padding:12px 14px;background:#FFFAF3;border:1px solid #EADBC8;border-radius:11px;cursor:pointer;font-family:Mulish,sans-serif"><span style="{{ a.box }}"><sc-if value="{{ a.on }}"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FFFFFF" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if></span><span style="{{ a.text }}">{{ a.label }}</span></button></sc-for>
+        </div></sc-if>
+      </div>
+      </sc-if>
+
+      <div style="background:#FFFFFF;border:2px solid #F5A020;border-radius:16px;padding:22px">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Your next step</div>
+        <h2 style="margin:6px 0 0;font-size:22px;line-height:1.2;font-weight:800;letter-spacing:-0.015em;color:#C24000">{{ next.title }}</h2>
+        <p style="margin:8px 0 0;font-size:14.5px;line-height:1.6;color:#241B14;max-width:60ch">{{ next.body }}</p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" onClick="{{ act.next1 }}" style="{{ btnPFull }}">{{ next.primary }}</button>
+          <sc-if value="{{ next.hasSecond }}"><button type="button" onClick="{{ act.next2 }}" style="{{ btnOFull }}">{{ next.secondary }}</button></sc-if>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #EADBC8;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:11.5px;font-weight:800;color:#6B5A4D">Prototype: preview routing by turnover</span><sc-for list="{{ routes }}" as="r" hint-placeholder-count="3"><button type="button" onClick="{{ r.click }}" style="{{ r.style }}">{{ r.label }}</button></sc-for></div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button type="button" onClick="{{ act.pdf }}" style="{{ btnOFull }}">Download PDF</button>
+        <button type="button" onClick="{{ act.whatsapp }}" style="{{ btnOFull }}">Send to WhatsApp</button>
+        <button type="button" onClick="{{ act.selfAudit }}" style="{{ btnPFull }}">Start your Self-Audit</button>
+      </div>
+      <div style="font-size:12px;line-height:1.6;color:#6B5A4D">Visible only to you and the Amalthea audit team. <a href="#privacy" onClick="{{ act.privacy }}">Privacy notice · DPDP Act, 2023</a></div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isPdf }}">
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;padding:6px 0">
+      <div style="width:794px;height:1123px;flex:none;background:#FFFFFF;box-shadow:0 6px 28px rgba(36,27,20,0.16);padding:52px 54px 40px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+        <div style="display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:3px solid #F5A020"><svg width="30" height="30" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><div style="flex:1 1 0"><div style="font-size:17px;font-weight:800;color:#241B14">AI-Readiness Scorecard</div><div style="font-size:12.5px;font-weight:600;color:#6B5A4D">Kavya Industrial Supplies · Rajkot · Illustrative example</div></div><div style="font-size:12.5px;font-weight:700;color:#6B5A4D">Amalthea Consultancy</div></div>
+        <div style="margin-top:22px;display:flex;gap:26px;align-items:center">
+          <div style="flex:none;text-align:center;width:230px"><svg width="230" height="134" viewBox="0 0 220 128" aria-hidden="true"><path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#EADBC8" stroke-width="16" stroke-linecap="round"></path><path d="M20 112 A90 90 0 0 1 200 112" fill="none" stroke="#C62828" stroke-width="16" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="175.3"></path><text x="110" y="98" text-anchor="middle" font-family="Mulish" font-size="50" font-weight="800" fill="#241B14">38</text><text x="110" y="120" text-anchor="middle" font-family="Mulish" font-size="12" font-weight="700" fill="#6B5A4D">out of 100</text></svg><div style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;background:#FADBD8;border:1px solid #C62828;border-radius:999px;font-size:14px;font-weight:800;color:#C62828">Foundation first</div></div>
+          <div style="flex:1 1 0;display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ bars }}" as="p" hint-placeholder-count="5"><div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:14px;font-weight:800;color:#241B14">{{ p.name }}</span><span style="font-size:14px;font-weight:800;color:#C24000">{{ p.label }}</span></div><div style="height:9px;background:#EADBC8;border-radius:99px;overflow:hidden"><div style="{{ p.fill }}"></div></div></div></sc-for>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:#6B5A4D">Scores are calculated by fixed rules. AI only writes the explanations.</div>
+        <div style="margin-top:20px;display:flex;align-items:center;gap:10px"><div style="font-size:19px;font-weight:800;color:#C24000">What your score means</div><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></div>
+        <p style="margin:8px 0 0;font-size:15.5px;line-height:1.65;color:#241B14">Kavya runs on Kiran's time and memory. Data sits across Tally, Excel and WhatsApp, and most decisions wait for him. Before AI can help, three foundations are needed: written limits for routine decisions, a few core SOPs, and one clean customer and item list.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:10px"><div style="font-size:19px;font-weight:800;color:#C24000">Your three biggest gaps</div><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="3"><div style="border:1px solid #EADBC8;border-left:5px solid #C62828;border-radius:8px;padding:12px 15px;background:#FFFAF3"><div style="font-size:12px;font-weight:800;color:#C62828;text-transform:uppercase;letter-spacing:0.04em">{{ g.pillar }} · {{ g.score }}/20</div><div style="margin-top:3px;font-size:15.5px;font-weight:800;color:#241B14">{{ g.gap }}</div><div style="margin-top:3px;font-size:14px;line-height:1.55;color:#241B14"><strong>Why it matters:</strong> {{ g.why }}</div></div></sc-for>
+        </div>
+        <div style="flex:1 1 auto"></div>
+        <div style="padding-top:10px;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D;display:flex;justify-content:space-between"><span>Visible only to you and the Amalthea audit team · Privacy notice, DPDP Act, 2023</span><span>Page 1 of 2</span></div>
+      </div>
+
+      <div style="width:794px;height:1123px;flex:none;background:#FFFFFF;box-shadow:0 6px 28px rgba(36,27,20,0.16);padding:52px 54px 40px;display:flex;flex-direction:column;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:3px solid #F5A020"><svg width="30" height="30" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="#C24000" stroke-width="1.4"></circle><path d="M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z" fill="#F5A020"></path></svg><div style="flex:1 1 0"><div style="font-size:17px;font-weight:800;color:#241B14">AI-Readiness Scorecard</div><div style="font-size:12.5px;font-weight:600;color:#6B5A4D">Kavya Industrial Supplies · Rajkot · Illustrative example</div></div></div>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:10px"><div style="font-size:19px;font-weight:800;color:#C24000">Three AI use cases that fit your business</div><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3"><div style="border:1px solid #EADBC8;border-radius:8px;padding:12px 15px;background:#FFFAF3;display:flex;gap:14px;align-items:flex-start"><div style="flex:1 1 0"><div style="font-size:15.5px;font-weight:800;color:#241B14">{{ c.name }}</div><div style="margin-top:3px;font-size:14px;line-height:1.55;color:#241B14"><strong>Must exist first:</strong> {{ c.first }}</div></div><span style="{{ c.effStyle }}">Effort: {{ c.effort }}</span></div></sc-for>
+        </div>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:10px"><div style="font-size:19px;font-weight:800;color:#C24000">Your first three actions</div><span style="padding:3px 8px;background:#15120D;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:0.05em;color:#F5A020;text-transform:uppercase">Drafted by AI</span></div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ actions }}" as="a" hint-placeholder-count="3"><div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:20px;height:20px;border:2px solid #E8650A;border-radius:5px;margin-top:2px"></span><span style="font-size:15px;line-height:1.55;color:#241B14">{{ a.label }}</span></div></sc-for>
+        </div>
+        <div style="margin-top:26px;padding:18px 20px;background:#FDF4E3;border:2px solid #F5A020;border-radius:10px">
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6B5A4D">Your next step</div>
+          <div style="margin-top:4px;font-size:18px;font-weight:800;color:#C24000">Join the free webinar · Book a 20-minute audit call</div>
+          <div style="margin-top:6px;font-size:14px;line-height:1.6;color:#241B14">Bring this report. We will walk through your three gaps and what a Self-Audit would cover.</div>
+        </div>
+        <div style="flex:1 1 auto"></div>
+        <div style="font-size:12.5px;line-height:1.7;color:#241B14">Amalthea Consultancy, Ahmedabad · hello@amalthea.example · +91 00000 00000</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid #EADBC8;font-size:11.5px;color:#6B5A4D;display:flex;justify-content:space-between"><span>This report makes no income or revenue promises. Scores use fixed rules.</span><span>Page 2 of 2</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ showBar }}">
+  <div style="position:sticky;bottom:0;z-index:30;background:#FFFFFF;border-top:1px solid #EADBC8;padding:10px {{ px }}px;box-shadow:0 -6px 18px rgba(36,27,20,0.07)">
+    <div style="max-width:{{ maxW }}px;margin:0 auto;display:flex;gap:10px">
+      <sc-if value="{{ hasBack }}"><button type="button" onClick="{{ act.back }}" style="{{ btnOBack }}">Back</button></sc-if>
+      <button type="button" onClick="{{ act.next }}" style="{{ btnPNext }}">{{ nextLabel }}</button>
+    </div>
+  </div>
+  </sc-if>
+  <sc-if value="{{ resBar }}">
+  <div style="position:sticky;bottom:0;z-index:30;background:#FFFFFF;border-top:1px solid #EADBC8;padding:10px 16px;box-shadow:0 -6px 18px rgba(36,27,20,0.07)"><button type="button" onClick="{{ act.selfAudit }}" style="{{ btnPNextFull }}">Start your Self-Audit</button></div>
+  </sc-if>
+
+  <div style="position:sticky;bottom:0;height:0;z-index:50">
+    <sc-if value="{{ toast }}">
+    <div style="position:absolute;left:14px;right:14px;bottom:{{ toastB }}px;display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#FFFFFF;border:1px solid #2E7D32;border-left:4px solid #2E7D32;border-radius:10px;box-shadow:0 8px 24px rgba(36,27,20,0.2);max-width:520px;margin:0 auto">
+      <svg width="18" height="18" viewBox="0 0 16 16" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#2E7D32" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div style="font-size:13.5px;line-height:1.5;font-weight:700;color:#241B14">{{ toast }}</div>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;screen&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;S2.1&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { ready: false, cur: "", ans: [], det: {}, tried: false, open: { meaning: true }, toast: "", gen: 0, live: false, sw: [], t1: "", t3: "", recOn: "", vo: {}, rev: {}, chk: {}, resume: false };
+  rootEl = null; iv = null; tm = null;
+
+  D() {
+    return {
+      LAB: ["Never", "Rarely", "Sometimes", "Mostly", "Always"],
+      PIL: [
+        { name: "Ownership", blurb: "Who decides, and where AI may act and where a human approves.", items: ["Every key function has a named owner other than me.", "Routine decisions have written limits my team follows without calling me.", "I could be unreachable for a full working day and nothing would stop.", "My team knows which tasks need human approval and which do not.", "When something goes wrong, we know who fixes the process."] },
+        { name: "Process", blurb: "SOPs that AI can follow.", items: ["Our top ten recurring processes are written down.", "Written processes are actually followed, not just filed.", "A new joiner can learn a task from our documents without asking me.", "The same task is done the same way by different people.", "When a mistake repeats, we change the process, not just scold the person."] },
+        { name: "Data", blurb: "Clean, structured records in one place.", items: ["Our customer, item and price lists each live in one place and are up to date.", "Sales, stock and payment records are entered the same day.", "We can pull last month's sales by customer or product within minutes.", "Important work happens in software or sheets, not only on WhatsApp and paper.", "Data entered once is not typed again into another system."] },
+        { name: "Numbers and Control", blurb: "Dashboards and reviews that check results, including AI output.", items: ["I see sales, cash and delivery numbers every week without asking.", "Each key number has an owner who updates it.", "We hold a weekly review with a fixed agenda.", "We catch problems before customers complain.", "We check the quality of work before it reaches customers, and would do the same for AI output."] },
+        { name: "People and Policy", blurb: "Skills, an AI usage policy and data security.", items: ["My team is comfortable using software and learning new tools.", "At least one person besides me uses AI tools at work.", "We have written rules on what company data can be shared outside, including with AI tools.", "Customer and employee data is protected with access controls.", "I spend at least half a day a week improving the business, not just running it."] }
+      ],
+      SEED: [2,1,1,3,2, 2,1,1,2,1, 1,1,1,1,1, 2,1,2,1,2, 3,2,1,1,2],
+      SW: ["Tally", "Busy", "Zoho", "Excel / Google Sheets", "WhatsApp Business", "CRM", "ERP", "None", "Other"],
+      KAV: { name: "Kiran Mehta", biz: "Kavya Industrial Supplies", industry: "Trading", city: "Rajkot", turnover: "₹3–10 crore", team: "8–20", wa: "9876543210", email: "kiran@kavya-industrial.example", consent: true },
+      BLANK: { name: "", biz: "", industry: "", city: "", turnover: "", team: "", wa: "", email: "", consent: false },
+      MOON: ["", "M10 10 L10 1.5 A8.5 8.5 0 0 1 18.5 10 Z", "M10 10 L10 1.5 A8.5 8.5 0 0 1 10 18.5 Z", "M10 10 L10 1.5 A8.5 8.5 0 1 1 1.5 10 Z", "M10 1.5 A8.5 8.5 0 1 1 9.99 1.5 Z"]
+    };
+  }
+
+  seed() {
+    const p = this.props, d = this.D();
+    const sc = p.screen || "S2.1", v = p.variant || "";
+    const idx = parseInt(sc.split(".")[1], 10);
+    let ans = idx >= 3 ? d.SEED.slice() : Array(25).fill(null);
+    let det = Object.assign({}, sc === "S2.1" ? d.BLANK : d.KAV);
+    let tried = false, resume = false, toast = "", gen = 0;
+    if (v === "validation") det = { name: "Kiran Mehta", biz: "Kavya Industrial Supplies", industry: "", city: "", turnover: "₹3–10 crore", team: "", wa: "98765", email: "kiran@kavya", consent: false }, tried = true;
+    if (v === "unanswered") { ans = ans.map((x, i) => (i < 7 ? x : null)); tried = true; }
+    if (v === "resume") { ans = ans.map((x, i) => (i < 14 ? x : null)); resume = true; }
+    if (v === "sent") toast = "Report sent to WhatsApp +91 98••• ••210 and your email";
+    if (v === "network" || sc === "S2.10") gen = 2;
+    const late = idx >= 8;
+    this.setState({ ready: true, cur: sc, ans, det, tried, resume, toast, gen, live: false, open: { meaning: true }, sw: late ? ["Tally", "Excel / Google Sheets", "WhatsApp Business"] : [], t1: late ? "Quotations wait for my approval. Dispatch slips by a day when the transporter is late." : "", t3: late ? "Sending order-status updates to customers on WhatsApp." : "", recOn: "", vo: {}, rev: {}, chk: {} });
+    clearInterval(this.iv);
+    if (sc === "S2.10" && v !== "network") this.runGen(false);
+  }
+
+  componentDidMount() { this.seed(); }
+  componentDidUpdate(prev) { if (prev.screen !== this.props.screen || prev.variant !== this.props.variant) this.seed(); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.tm); }
+
+  runGen(live) {
+    clearInterval(this.iv);
+    this.setState({ gen: 0, live });
+    this.iv = setInterval(() => {
+      const g = this.state.gen + 1;
+      this.setState({ gen: g });
+      if (!this.state.live && g >= 2) clearInterval(this.iv);
+      if (g >= 4) { clearInterval(this.iv); if (this.state.live) this.tm = setTimeout(() => this.go("S2.11"), 800); }
+    }, 1000);
+  }
+
+  go(cur) {
+    this.setState({ cur, tried: false, toast: "" });
+    if (this.rootEl) this.rootEl.scrollTo({ top: 0 });
+  }
+
+  flash(msg, ms) {
+    this.setState({ toast: msg });
+    clearTimeout(this.tm);
+    if (ms !== 0) this.tm = setTimeout(() => this.setState({ toast: "" }), ms || 3200);
+  }
+
+  errs(det) {
+    const e = {};
+    if (!det.name.trim()) e.name = "Enter your name.";
+    if (!det.biz.trim()) e.biz = "Enter your business name.";
+    if (!det.industry) e.industry = "Choose an industry.";
+    if (!det.city.trim()) e.city = "Enter your city.";
+    if (!det.turnover) e.turnover = "Choose a turnover band.";
+    if (!det.team) e.team = "Choose a team size.";
+    if (!/^[6-9]\d{9}$/.test(det.wa.replace(/\s/g, ""))) e.wa = "Enter a 10-digit mobile number.";
+    if (!/^\S+@\S+\.\S+$/.test(det.email)) e.email = "Enter a valid email, like name@company.in";
+    if (!det.consent) e.consent = "1";
+    return e;
+  }
+
+  renderVals() {
+    const s = this.state, m = !!this.props.mobile, D = this.D(), v = this.props.variant || "";
+    const cur = s.cur || this.props.screen || "S2.1";
+    const idx = parseInt(cur.split(".")[1], 10);
+    const isPdf = idx === 14;
+    const isStart = idx === 1, isDet = idx === 2, isPil = idx >= 3 && idx <= 7, isOpen = idx === 8, isRev = idx === 9, isGen = idx === 10, isRes = idx >= 11 && idx <= 13;
+    const ans = s.ans.length ? s.ans : Array(25).fill(null);
+    const det = s.det.name === undefined ? D.BLANK : s.det;
+    const pil = isPil ? idx - 3 : 0;
+    const set = (o) => this.setState(o);
+
+    const btn = "font-family:Mulish,sans-serif;font-weight:800;cursor:pointer;border-radius:10px;";
+    const btnP = btn + "min-height:52px;padding:0 26px;font-size:16px;border:none;background:#E8650A;color:#FFFFFF;";
+    const btnO = btn + "min-height:52px;padding:0 22px;font-size:15px;background:#FFFFFF;color:#C24000;border:2px solid #E8650A;";
+    const btnPFull = btnP + (m ? "width:100%;" : "");
+    const btnOFull = btnO + (m ? "width:100%;" : "");
+
+    const toStr = (a) => Object.keys(a).map(k => k + ":" + a[k]).join(";");
+    const firstMissing = () => { for (let i = 0; i < 25; i++) if (ans[i] == null) return i; return -1; };
+
+    const errsAll = this.errs(det);
+    const showErr = s.tried || v === "validation";
+    const inBase = "width:100%;min-height:48px;padding:0 13px;background:#FFFFFF;border-radius:10px;font-family:Mulish,sans-serif;font-size:15px;color:#241B14;";
+    const mk = (k, label, ph, kind, opts) => ({
+      label, ph, opts,
+      isText: kind === "t", isWa: kind === "w", isSel: kind === "s",
+      value: det[k], err: showErr && !!errsAll[k], errText: errsAll[k] || "",
+      inStyle: inBase + (showErr && errsAll[k] ? "border:1.5px solid #C62828;" : "border:1px solid #EADBC8;") + (kind === "w" ? "flex:1 1 0;min-width:0;" : ""),
+      onChange: (e) => { const nd = Object.assign({}, this.state.det); nd[k] = e.target.value; set({ det: nd }); }
+    });
+    const fields = [
+      mk("name", "Your name", "Kiran Mehta", "t"), mk("biz", "Business name", "Kavya Industrial Supplies", "t"),
+      mk("industry", "Industry", "", "s", ["Manufacturing", "Trading", "Services", "Professional services", "Other"]), mk("city", "City", "Rajkot", "t"),
+      mk("turnover", "Annual turnover", "", "s", ["Under ₹1 crore", "₹1–3 crore", "₹3–10 crore", "₹10–25 crore", "Above ₹25 crore"]), mk("team", "Team size", "", "s", ["1–7", "8–20", "21–50", "51–80", "80+"]),
+      mk("wa", "WhatsApp number", "98765 43210", "w"), mk("email", "Email", "name@company.in", "t")
+    ];
+    const errConsent = showErr && !!errsAll.consent;
+    const consentBox = "flex:none;width:44px;height:44px;margin:-6px 0 0 -8px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:Mulish,sans-serif;";
+    const consentBoxFull = "flex:none;width:28px;height:28px;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;background:" + (det.consent ? "#E8650A" : "#FFFFFF") + ";border:2px solid " + (errConsent ? "#C62828" : "#E8650A") + ";";
+
+    const stepper = D.PIL.map((p, i) => {
+      const done = ans.slice(i * 5, i * 5 + 5).every(x => x != null);
+      const active = i === pil;
+      return {
+        name: m ? (active ? p.name : "") : p.name,
+        path: done ? D.MOON[4] : active ? D.MOON[2] : "",
+        stroke: active || done ? "#C24000" : "#6B5A4D",
+        lab: "font-size:11px;line-height:1.25;text-align:center;font-weight:" + (active ? 800 : 700) + ";color:" + (active ? "#C24000" : "#6B5A4D"),
+        click: () => { if (done || active) this.go("S2." + (i + 3)); }
+      };
+    });
+
+    const items = D.PIL[pil].items.map((text, j) => {
+      const i = pil * 5 + j, val = ans[i], missing = s.tried && val == null || (v === "unanswered" && val == null && s.tried);
+      return {
+        no: i + 1, text, missing,
+        box: "padding:14px 14px 14px;border-radius:12px;background:" + (missing ? "#FADBD8" : "#FFFFFF") + ";border:" + (missing ? "1.5px solid #C62828" : "1px solid #EADBC8"),
+        chips: D.LAB.map((label, n) => {
+          const on = val === n;
+          return {
+            n, label, on,
+            click: () => { const a = this.state.ans.slice(); a[i] = n; set({ ans: a }); },
+            lab: "font-size:10.5px;font-weight:700;line-height:1.1;color:" + (on ? "#C24000" : "#6B5A4D"),
+            style: "display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:52px;padding:6px 1px;border-radius:10px;cursor:pointer;font-family:Mulish,sans-serif;min-width:0;color:" + (on ? "#C24000" : "#241B14") + ";background:" + (on ? "#FDF4E3" : "#FFFFFF") + ";border:" + (on ? "2px solid #E8650A" : "1px solid #EADBC8")
+          };
+        })
+      };
+    });
+
+    const toggleSw = (name) => { const a = this.state.sw.slice(), k = a.indexOf(name); if (k >= 0) a.splice(k, 1); else a.push(name); set({ sw: a }); };
+    const swChips = D.SW.map(name => { const on = s.sw.indexOf(name) >= 0; return { label: name, on, click: () => toggleSw(name), style: "min-height:44px;padding:0 15px;border-radius:999px;cursor:pointer;font-family:Mulish,sans-serif;font-size:14px;font-weight:700;color:" + (on ? "#C24000" : "#241B14") + ";background:" + (on ? "#FDF4E3" : "#FFFFFF") + ";border:" + (on ? "2px solid #E8650A" : "1px solid #EADBC8") }; });
+    const recStyle = (on) => "min-height:44px;padding:0 15px;display:inline-flex;align-items:center;gap:8px;border-radius:999px;cursor:pointer;font-family:Mulish,sans-serif;font-size:13.5px;font-weight:800;color:" + (on ? "#FFFFFF" : "#C24000") + ";background:" + (on ? "#C62828" : "#FFFFFF") + ";border:" + (on ? "none" : "1.5px solid #E8650A");
+    const rec = (w, key, sample) => () => {
+      if (s.recOn === w) { const nv = Object.assign({}, this.state.vo); nv[w] = true; const cur0 = this.state[key]; set({ recOn: "", vo: nv, [key]: (cur0 ? cur0 + " " : "") + sample }); }
+      else set({ recOn: w });
+    };
+
+    const review = D.PIL.map((p, i) => {
+      const rows = p.items.map((text, j) => { const a = ans[i * 5 + j]; return { text, label: a == null ? "Unanswered" : a + " " + D.LAB[a], style: "flex:none;font-size:12px;font-weight:800;color:" + (a == null ? "#C62828" : "#241B14") }; });
+      const n = rows.filter(r => r.label !== "Unanswered").length, open = !!s.rev[i];
+      return { name: p.name, rows, open, status: n + " of 5 answered", badge: "flex:none;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:800;background:" + (n === 5 ? "#EAF4EB" : "#FADBD8") + ";color:" + (n === 5 ? "#2E7D32" : "#C62828"),
+        chev: "flex:none;transition:transform .15s;transform:rotate(" + (open ? 180 : -90) + "deg)",
+        toggle: () => { const r = Object.assign({}, this.state.rev); r[i] = !r[i]; set({ rev: r }); }, edit: () => this.go("S2." + (i + 3)) };
+    });
+    const answered = ans.filter(x => x != null).length;
+
+    const pillScores = [9, 7, 5, 8, 9];
+    const bars = D.PIL.map((p, i) => { const sc = pillScores[i]; return { name: p.name, label: sc + "/20", weak: i === 2, fill: "width:" + sc * 5 + "%;height:100%;border-radius:99px;background:" + (i === 2 ? "#C62828" : sc >= 14 ? "#2E7D32" : sc >= 8 ? "#F5A020" : "#E8650A") }; });
+    const gaps = [
+      { pillar: "Data", score: 5, gap: "Records sit in Tally, Excel and WhatsApp", why: "AI can only work from what it can find. Scattered records give confident but wrong answers." },
+      { pillar: "Process", score: 7, gap: "Key tasks are not written down", why: "AI follows steps. If the steps are unwritten, it will invent them." },
+      { pillar: "Numbers and Control", score: 8, gap: "Results are checked only when the founder asks", why: "Without a weekly review, no one would notice if AI output went wrong." }
+    ];
+    const eff = { Low: ["#EAF4EB", "#2E7D32"], Medium: ["#FDF4E3", "#B7791F"], High: ["#FADBD8", "#C62828"] };
+    const cases = [
+      { name: "Quotation assistant with discount rules", first: "Written discount limits and one clean item and price list.", effort: "Medium" },
+      { name: "WhatsApp order-status updates", first: "Orders and dispatch entered the same day, in one place.", effort: "Medium" },
+      { name: "Receivables follow-up reminders", first: "A current debtors ageing report and a written follow-up rule.", effort: "Low" }
+    ].map(c => Object.assign(c, { effStyle: "flex:none;display:inline-block;padding:4px 10px;border-radius:7px;font-size:12px;font-weight:800;background:" + eff[c.effort][0] + ";color:" + eff[c.effort][1] }));
+    const actions = [
+      "Write discount limits: who can approve what, up to which amount.",
+      "Write the dispatch steps as a one-page checklist and pin it in the warehouse.",
+      "Merge the customer and item lists into one sheet, with one named owner."
+    ].map((label, i) => { const on = !!s.chk[i]; return { label, on, click: () => { const c = Object.assign({}, this.state.chk); c[i] = !c[i]; set({ chk: c }); },
+      box: "flex:none;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;background:" + (on ? "#2E7D32" : "#FFFFFF") + ";border:2px solid " + (on ? "#2E7D32" : "#E8650A"),
+      text: "font-size:14.5px;line-height:1.5;font-weight:600;color:#241B14;" + (on ? "text-decoration:line-through;color:#6B5A4D" : "") }; });
+
+    const band = det.turnover === "Under ₹1 crore" ? "low" : (det.turnover === "₹10–25 crore" || det.turnover === "Above ₹25 crore") ? "high" : "mid";
+    const nextMap = {
+      low: { title: "Join the free webinar", body: "Learn how to get processes and data ready before you add AI. A good first step for a business at your size.", primary: "Join the free webinar", hasSecond: false, secondary: "" },
+      mid: { title: "Join the free webinar, or talk to us", body: "The webinar covers your three gaps in 45 minutes. If you would rather go through your report with a consultant, book a short call.", primary: "Join the free webinar", hasSecond: true, secondary: "Book a 20-minute audit call" },
+      high: { title: "Book an audit call", body: "At your size, a consultant-led audit is usually the right fit. Book a call and we will walk through this report and scope the audit.", primary: "Book an audit call", hasSecond: false, secondary: "" }
+    };
+    const routeDefs = [["low", "Under ₹1 crore", "Under ₹1 crore"], ["mid", "₹1–10 crore", "₹3–10 crore"], ["high", "Above ₹10 crore", "₹10–25 crore"]];
+    const routes = routeDefs.map(([k, label, val]) => ({ label, click: () => { const nd = Object.assign({}, this.state.det); nd.turnover = val; set({ det: nd }); },
+      style: "min-height:36px;padding:0 12px;border-radius:999px;cursor:pointer;font-family:Mulish,sans-serif;font-size:12px;font-weight:800;color:" + (band === k ? "#C24000" : "#6B5A4D") + ";background:" + (band === k ? "#FDF4E3" : "#FFFFFF") + ";border:" + (band === k ? "2px solid #E8650A" : "1px solid #EADBC8") }));
+
+    const openState = { meaning: !m || !!s.open.meaning, gaps: !m || !!s.open.gaps, cases: !m || !!s.open.cases, actions: !m || !!s.open.actions };
+    const tg = {}, chev = {};
+    ["meaning", "gaps", "cases", "actions"].forEach(k => { tg[k] = () => { if (m) { const o = Object.assign({}, this.state.open); o[k] = !o[k]; set({ open: o }); } }; chev[k] = "flex:none;transition:transform .15s;transform:rotate(" + (openState[k] ? 180 : 0) + "deg);" + (m ? "" : "display:none"); });
+
+    const gs = ["Scoring your answers", "Comparing your pillars", "Writing your report", "Preparing your PDF"];
+    const netErr = v === "network" && isGen;
+    const genSteps = gs.map((label, i) => { const done = s.gen > i, active = s.gen === i; return { label, done, active,
+      line: i < 3 ? "1px solid #EADBC8" : "none",
+      dot: "flex:none;width:26px;height:26px;border-radius:99px;display:flex;align-items:center;justify-content:center;background:" + (done ? "#2E7D32" : "#FFFFFF") + ";border:2px solid " + (done ? "#2E7D32" : active ? "#E8650A" : "#EADBC8"),
+      text: "font-size:15px;font-weight:" + (done || active ? 800 : 600) + ";color:" + (done || active ? "#241B14" : "#6B5A4D") }; });
+
+    const showBar = idx >= 2 && idx <= 9;
+    const nextLabels = { 2: "Continue", 3: "Next", 4: "Next", 5: "Next", 6: "Next", 7: "Next", 8: "Review answers", 9: "Get my report" };
+    const act = {
+      exit: () => this.flash("Progress saved. You can resume from the link we email you."),
+      privacy: (e) => { e && e.preventDefault && e.preventDefault(); this.flash("Opens the privacy notice · DPDP Act, 2023"); },
+      toastWrite: () => this.flash("Opens email to hello@amalthea.example"),
+      dismissResume: () => set({ resume: false }),
+      startOver: () => set({ resume: false, ans: Array(25).fill(null), cur: "S2.3" }),
+      start: () => { set({ ans: Array(25).fill(null), det: Object.assign({}, D.BLANK), sw: [], t1: "", t3: "" }); this.go("S2.2"); },
+      consent: () => { const nd = Object.assign({}, this.state.det); nd.consent = !nd.consent; set({ det: nd }); },
+      fill: () => set({ ans: D.SEED.slice() }),
+      setT1: (e) => set({ t1: e.target.value }), setT3: (e) => set({ t3: e.target.value }),
+      rec1: rec("1", "t1", "The biggest bottleneck is quotations. Every discount waits for me, so customers wait a day."),
+      rec3: rec("3", "t3", "I would like order-status updates to go to customers on WhatsApp by themselves."),
+      editDet: () => this.go("S2.2"),
+      retry: () => { this.go("S2.10"); this.runGen(true); },
+      pdf: () => this.flash("The PDF opens as S2.14 (two-page A4)"),
+      whatsapp: () => this.flash("Report sent to WhatsApp +91 98••• ••210 and your email"),
+      selfAudit: () => this.flash("Goes to S3.1 · Self-Audit start (Prompt 3)"),
+      next1: () => this.flash(band === "high" ? "Opens audit call booking" : "Opens webinar registration"),
+      next2: () => this.flash("Opens 20-minute call booking"),
+      back: () => { if (idx === 2) this.go("S2.1"); else this.go("S2." + (idx - 1)); },
+      next: () => {
+        if (idx === 2) { if (Object.keys(errsAll).length) { set({ tried: true }); this.flash("Fix the highlighted fields to continue."); } else this.go("S2.3"); }
+        else if (isPil) {
+          const miss = ans.slice(pil * 5, pil * 5 + 5).filter(x => x == null).length;
+          if (miss) { set({ tried: true }); this.flash(miss + (miss === 1 ? " statement needs an answer." : " statements need an answer.")); } else this.go("S2." + (idx + 1));
+        }
+        else if (idx === 8) this.go("S2.9");
+        else if (idx === 9) { const fm = firstMissing(); if (fm >= 0) { this.flash((25 - answered) + " statements are unanswered. Tap Edit to fill them."); } else { this.go("S2.10"); this.runGen(true); } }
+      }
+    };
+
+    const crumbs = { 1: "Free · 10 minutes", 2: "Step 1 of 3 · Your details", 8: "Step 3 of 3 · Open questions", 9: "Review", 10: "Generating", 11: "Your result", 12: "Your result", 13: "Your result" };
+    const crumb = isPil ? "Step 2 of 3 · " + D.PIL[pil].name : (crumbs[idx] || "");
+    const aiDown = v === "aiDown";
+
+    return {
+      m, notM: !m, isPdf, isStart, isDet, isPil, isOpen, isRev, isGen, isRes, showChrome: !isPdf, notRate: !(v === "ratelimit" && isStart), notNet: !netErr, notAi: !aiDown,
+      showSaved: idx >= 2 && idx <= 9, crumb, resume: s.resume && isPil, netErr, aiDown, rateLimit: v === "ratelimit" && isStart,
+      setRoot: (el) => { this.rootEl = el; },
+      rootStyle: "position:relative;height:" + (isPdf ? 1240 : m ? 844 : 900) + "px;overflow-y:auto;overflow-x:" + (isPdf ? "auto" : "hidden") + ";background:#FFFAF3;color:#241B14;font-family:Mulish,sans-serif;border:1px solid #EADBC8;border-radius:" + (m ? 26 : 12) + "px",
+      px: m ? 16 : 40, barH: m ? 60 : 68, maxW: isRes ? 1040 : isStart ? 1040 : 720, pad: m ? "22px 16px 28px" : "40px 40px 48px",
+      gap: m ? 22 : 40, gap2: m ? 14 : 18, h1: m ? 36 : 52, h2: m ? 27 : 34,
+      btnS: btnO + "min-height:44px;padding:0 16px;font-size:14px;", btnPFull, btnOFull,
+      btnRetry: btnP + "margin-top:14px;min-height:48px;", btnOBack: btnO + "flex:none;", btnPNext: btnP + "flex:1 1 0;", btnPNextFull: btnP + "width:100%;",
+      act, tg, chev, open: openState, hdrStyle: "width:100%;min-height:56px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:transparent;border:none;text-align:left;font-family:Mulish,sans-serif;cursor:" + (m ? "pointer" : "default"),
+      gets: [["Score out of 100", "One number, calculated by fixed rules.", 4], ["Five pillar scores", "Ownership, Process, Data, Numbers and Control, People and Policy.", 3], ["A personal report with three gaps", "What holds you back, in plain words.", 3], ["Three AI use cases", "That fit a business like yours.", 2], ["Three first actions", "A checklist you can start this week.", 1]].map(([t, d, mo]) => ({ t, d, moon: D.MOON[mo] })),
+      fields, det, errConsent, consentBox: consentBoxFull, stepper,
+      pilNo: pil + 1, pilName: D.PIL[pil].name, pilBlurb: D.PIL[pil].blurb, items,
+      t1: s.t1, t1Count: s.t1.length, vo1: !!s.vo["1"], vo3: !!s.vo["3"], t3: s.t3, swChips,
+      rec1Style: recStyle(s.recOn === "1"), rec1Label: s.recOn === "1" ? "Recording… tap to stop" : "Record a voice note", rec3Style: recStyle(s.recOn === "3"), rec3Label: s.recOn === "3" ? "Recording… tap to stop" : "Record a voice note",
+      review, revLine: answered === 25 ? "All 25 statements answered. Open a pillar to check, or edit it." : (25 - answered) + " of 25 statements are unanswered. Tap Edit on the pillar to finish.",
+      revDetLine: (det.biz || "Business") + " · " + (det.city || "City") + " · " + (s.sw.length) + " tools selected",
+      genMoon: D.MOON[Math.min(4, Math.max(1, s.gen + 1))], genTitle: netErr ? "Something went wrong" : s.gen >= 4 ? "Your report is ready" : "Building your report",
+      genSub: netErr ? "The connection dropped before we finished." : "This takes 15–30 seconds. Please keep this page open.", genSteps,
+      bars, gaps, cases, actions, next: nextMap[band], routes,
+      showBar, hasBack: idx >= 2, nextLabel: nextLabels[idx] || "Next", resBar: isRes && m,
+      toast: s.toast, toastB: (showBar || (isRes && m)) ? 84 : 22
+    };
+  }
+}
+</script>
+</body>
+</html>
