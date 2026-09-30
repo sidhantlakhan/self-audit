@@ -1,25 +1,51 @@
-# CODING AGENTS: READ THIS FIRST
+# Amalthea AI-Ready Audit Platform
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Next.js implementation of the Claude Design handoff in `project/` (the design files) and `chats/` (the design conversation).
+This release covers **Stage 0–2**: the design system, the public landing page, and the free AI-Readiness Scorecard with its
+AI-written report, PDF and delivery.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+| Route | Screen |
+|---|---|
+| `/` | S1.1 Landing page (desktop + mobile) |
+| `/scorecard` | S2.1–S2.10 Start, details, 5 pillar screens, open questions, review, generating (+ resume banner, rate limit, network error) |
+| `/scorecard/result/[token]` | S2.11–S2.13 Result, turnover-routed next step, Send to WhatsApp (AI-unavailable fallback included) |
+| `/scorecard/result/[token]/print`, `/api/scorecard/[token]/pdf` | S2.14 Two-page A4 PDF |
+| `/sample-report` | Illustrative Kavya Industrial Supplies report (stands in for S10.5 until Stage 10) |
+| `/privacy`, `/terms`, `/login` | Legal pages and the log-in holding page |
+| `/design`, `/design/sitemap`, `/design/founder-shell`, `/design/consultant-shell` | S0.1–S0.4, internal (noindex) |
 
-## What you should do — IMPORTANT
+## How it works
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+- **Scoring is fixed-rule and server-side** (`src/lib/scorecard.ts`): 25 statements × 0–4, five pillars of 20, total out of 100.
+  Bands: 0–40 Foundation first, 41–70 Getting ready, 71–100 AI-ready. The client never sends a score.
+- **The report** is one Claude call (`src/lib/server/report-ai.ts`, `claude-opus-5-5`, schema-constrained output). The model
+  writes only text; pillar order and scores come from the rules. Server-side refusal fallback (`fallbacks: "default"`) is enabled.
+- **If the AI call fails**, the founder sees their final score and the "on its way on WhatsApp" message. `GET /api/cron/retry-reports`
+  retries failed reports and sends them. **Schedule it every 5 minutes**, with `Authorization: Bearer $CRON_SECRET`, so the
+  30-minute promise holds.
+- **Autosave** writes every change to Postgres. The browser keeps the Scorecard token to resume, and "Save and exit" emails a resume link.
+- **Rate limit**: 5 starts per device and 25 per network address in 24 hours (configurable).
+- **Voice notes** use the browser's speech recognition (en-IN). Only the transcript is stored, and it carries the "Drafted by AI" badge.
+- **Leads**: next-step clicks and tier requests are stored in `interest_requests`. Completed Scorecards are in `scorecards`.
 
-**Read `project/Amalthea Audit Platform.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Run locally
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+```bash
+cp .env.example .env.local        # fill in DATABASE_URL at minimum
+npm install
+npm run db:migrate
+npm run dev                       # http://localhost:3000
+npm test                          # scoring rules, incl. the Kavya 38/100 sample
+```
 
-## About the design files
+## Deploy
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+Any Node 20+ host with Postgres works. PDF rendering needs a Chromium binary on the server (`CHROMIUM_EXECUTABLE_PATH`), so a
+container host with Chromium installed is simplest. On serverless, point it at a serverless Chromium build. Set `APP_URL` to the
+public URL. WhatsApp and email are each skipped when not configured, and the UI reports which channels actually sent.
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+## Placeholders to confirm
 
-## Bundle contents
-
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `UI Mockups for Stage 0` project files (HTML prototypes, assets, components)
+All unconfirmed business facts live in `src/config/site.ts`, and each can be overridden by env var: contact email and phone,
+Self-Audit and Consultant-led prices, data storage region, webinar and booking links. Until they are set, the site shows the
+design's approved "to be confirmed" wording.
