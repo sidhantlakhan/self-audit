@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+*.log
+.pglite
+.data
+coverage
+test-results

@@ -1,0 +1,54 @@
+{
+  "name": "ai-readiness-diagnostic",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI Readiness Diagnostic — business diagnostic with deterministic scoring and AI interpretation.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"tsx watch --env-file-if-exists=.env src/server/index.ts\" \"vite\"",
+    "dev:api": "tsx watch --env-file-if-exists=.env src/server/index.ts",
+    "dev:web": "vite",
+    "build": "npm run build:client && npm run build:ssr && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:ssr": "vite build --ssr src/client/entry-server.tsx --outDir dist/ssr",
+    "build:server": "node scripts/build-server.mjs",
+    "start": "node --env-file-if-exists=.env dist/server/index.js",
+    "migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
+    "seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
+    "admin:create": "tsx --env-file-if-exists=.env scripts/create-admin.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/static": "^10.1.5",
+    "@fontsource/mulish": "^5.3.0",
+    "fastify": "^5.12.5",
+    "pg": "^8.23.1",
+    "playwright-core": "^1.63.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.5",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
+  }
+}
