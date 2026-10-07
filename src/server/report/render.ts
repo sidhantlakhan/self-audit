@@ -85,7 +85,7 @@ export function renderReportHtml(d: ReportData): string {
     <div class="scale">${d.bandDefs.map((b, i) => `<div class="seg ${i === bandIdx ? 'on' : ''}"><div class="sl">${esc(b.label)}</div><div class="sr">${b.min}–${b.max}</div></div>`).join('')}</div>
     <p>${esc(a.readiness_interpretation)}</p>
     <h3>Five readiness dimensions</h3>
-    ${a.dimension_insights.map((di) => { const dim = dimLabel.get(di.dimension)!; const sc = Math.round(dim.score); return `<div class="dim"><div class="dh"><b>${esc(dim.label)}</b><span>${sc} / 100</span></div>${bar(sc)}<p class="small">${esc(di.insight)}</p></div>`; }).join('')}`;
+    ${a.dimension_insights.map((di) => { const dim = dimLabel.get(di.dimension); if (!dim) return ''; const sc = Math.round(dim.score); return `<div class="dim"><div class="dh"><b>${esc(dim.label)}</b><span>${sc} / 100</span></div>${bar(sc)}<p class="small">${esc(di.insight)}</p></div>`; }).join('')}`;
 
   const p3 = `
     <p class="muted">Areas where the answers indicate the weakest foundations, with the evidence behind each.</p>
@@ -126,7 +126,7 @@ export function renderReportHtml(d: ReportData): string {
     <h3>Suggested topics for the consultation</h3>
     <ul>${a.consultation_focus_areas.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
     <div class="cta"><div><div class="ct">Book Consultation</div><div class="cs">Bring this report. Your answers will be available to the consultant in advance.</div></div><a href="${esc(d.bookingUrl)}">Book Consultation</a></div>
-    <p class="small muted">${esc(d.bookingUrl)}</p>`;
+    <p class="small muted" style="word-break:break-all;overflow-wrap:anywhere">${esc(d.bookingUrl)}</p>`;
 
   return `<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><title>AI Readiness Diagnostic — ${esc(d.businessName)}</title><meta name="robots" content="noindex">
 <style>${fonts()}

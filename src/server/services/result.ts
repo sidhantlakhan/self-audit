@@ -3,6 +3,7 @@ import { getConfig } from '../../shared/config/index.ts';
 import type { ScoreResult } from '../../shared/types.ts';
 import type { AssessmentRow } from './assessments.ts';
 import { weakestQuestions } from '../scoring/engine.ts';
+import { buildBookingUrl } from './consultation.ts';
 
 /** The user-facing result. Deterministic parts are always present; the AI interpretation is added when ready. */
 export async function getResult(ctx: Ctx, a: AssessmentRow) {
@@ -35,5 +36,6 @@ export async function getResult(ctx: Ctx, a: AssessmentRow) {
       weakestAnswers: weakestQuestions(cfg, s, 4).map((w) => ({ id: w.questionId, label: w.label, score: Math.round(w.score) })),
     },
     analysis: an?.output ?? null,
+    bookingUrl: await buildBookingUrl(ctx, a).catch(() => null),
   };
 }

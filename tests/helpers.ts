@@ -26,7 +26,7 @@ export async function makeApp(opts: BuildOptions & { ai?: AiProvider; env?: Reco
 }
 
 export async function startAssessment(t: TestApp, extra: Record<string, unknown> = {}) {
-  const res = await t.app.inject({ method: 'POST', url: '/api/assessments', payload: { visitorId: 'v1', ...extra } });
+  const res = await t.app.inject({ method: 'POST', url: '/api/assessments', payload: { visitorId: 'v1', consent: true, ...extra } });
   const { id, token } = res.json();
   return { id, token, h: { authorization: `Bearer ${token}` } };
 }

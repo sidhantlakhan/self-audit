@@ -68,6 +68,8 @@ export const resumeLink = (ctx: Ctx, pid: string, token: string, path = '') => `
 
 // ── Create ────────────────────────────────────────────────────────────
 
+export const CONSENT_VERSION = 'privacy-v1';
+
 export interface CreateInput {
   visitorId?: string;
   landingUrl?: string;
@@ -85,7 +87,7 @@ export async function createAssessment(ctx: Ctx, input: CreateInput): Promise<{ 
   const device = deviceFromUA(input.userAgent);
   const now = new Date();
   const row = await ctx.db.tx(async (t) => {
-    const a = await t.one<{ id: string }>(`INSERT INTO assessments (public_id, assessment_version) VALUES ($1,$2) RETURNING id`, [pid, CURRENT_ASSESSMENT_VERSION]);
+    const a = await t.one<{ id: string }>(`INSERT INTO assessments (public_id, assessment_version, consent_at, consent_version) VALUES ($1,$2, now(), $3) RETURNING id`, [pid, CURRENT_ASSESSMENT_VERSION, CONSENT_VERSION]);
     await t.query(
       `INSERT INTO attribution (assessment_id, visitor_id, first_source, first_medium, first_campaign, first_content, first_term, first_ref, first_category, first_touch_at,
          latest_source, latest_medium, latest_campaign, latest_content, latest_term, latest_ref, latest_category, latest_touch_at, landing_url, referrer, device)

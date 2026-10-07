@@ -41,7 +41,7 @@ export async function recordClick(ctx: Ctx, a: AssessmentRow): Promise<string> {
   return buildBookingUrl(ctx, a);
 }
 
-export interface BookingInput { reference?: string | null; bookedAt?: Date; source: 'webhook' | 'self_reported' | 'admin'; metadata?: Record<string, unknown> }
+export interface BookingInput { reference?: string | null; bookedAt?: Date; source: 'webhook' | 'admin'; metadata?: Record<string, unknown> }
 
 /** Marks the consultation booked. Safe to repeat: the first booking time and reference are kept. */
 export async function recordBooked(ctx: Ctx, assessmentId: string, input: BookingInput): Promise<{ firstTime: boolean }> {

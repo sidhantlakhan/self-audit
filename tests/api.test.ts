@@ -161,6 +161,20 @@ describe('assessment lifecycle', () => {
     expect(n!.c).toBe(1);
   });
 
+  it('requires consent to the privacy notice and records it', async () => {
+    expect((await t.app.inject({ method: 'POST', url: '/api/assessments', payload: { visitorId: 'v' } })).statusCode).toBe(400);
+    expect((await t.app.inject({ method: 'POST', url: '/api/assessments', payload: { consent: false } })).statusCode).toBe(400);
+    const row = await t.db.one<any>('SELECT consent_at, consent_version FROM assessments WHERE public_id=$1', [a.id]);
+    expect(row.consent_at).not.toBeNull();
+    expect(row.consent_version).toBe('privacy-v1');
+  });
+
+  it('the browser cannot self-report a booking', async () => {
+    const r = await t.app.inject({ method: 'POST', url: `/api/assessments/${a.id}/consultation`, headers: a.h, payload: { action: 'booked' } });
+    expect(r.statusCode).toBe(200);
+    expect((await t.db.one<any>('SELECT consultation_status FROM assessments WHERE public_id=$1', [a.id]))!.consultation_status).toBe('clicked');
+  });
+
   it('consultation: click returns a prefilled booking URL; webhook marks booked; repeats are safe', async () => {
     const c = await t.app.inject({ method: 'POST', url: `/api/assessments/${a.id}/consultation`, headers: a.h, payload: {} });
     expect(c.statusCode).toBe(200);
@@ -171,6 +185,8 @@ describe('assessment lifecycle', () => {
     expect(url.searchParams.get('utm_source')).toBe('linkedin');
     let row = await t.db.one<any>('SELECT consultation_status FROM assessments WHERE public_id=$1', [a.id]);
     expect(row.consultation_status).toBe('clicked');
+    const result = (await t.app.inject({ method: 'GET', url: `/api/assessments/${a.id}/result`, headers: a.h })).json();
+    expect(new URL(result.bookingUrl).searchParams.get('assessment_id')).toBe(a.id);
 
     const body = JSON.stringify({ assessment_id: a.id, booking_reference: 'BK-123', booked_at: '2026-10-10T10:00:00Z' });
     const bad = await t.app.inject({ method: 'POST', url: '/api/webhooks/booking', headers: { 'content-type': 'application/json', 'x-signature': 'sha256=deadbeef' }, payload: body });

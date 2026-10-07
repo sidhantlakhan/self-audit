@@ -18,7 +18,7 @@ export async function serveClient(app: FastifyInstance, ctx: Ctx): Promise<void>
   const ssrFile = resolve('dist/ssr/entry-server.js');
   if (existsSync(ssrFile)) render = (await import(pathToFileURL(ssrFile).href)).render;
 
-  await app.register(fastifyStatic, { root, index: false, wildcard: false, setHeaders: (res: any, path: string) => { if (/\/assets\//.test(path)) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); } });
+  await app.register(fastifyStatic, { root, index: false, wildcard: false, setHeaders: (res: any, path: string) => { if (/\/assets\//.test(path)) (res.header ?? res.setHeader).call(res, 'Cache-Control', 'public, max-age=31536000, immutable'); } });
 
   app.get('/robots.txt', async (_req, reply) =>
     reply.type('text/plain').send(`User-agent: *\nAllow: /$\nDisallow: /assessment\nDisallow: /a/\nDisallow: /resume\nDisallow: /admin\nDisallow: /api/\nSitemap: ${appUrl}/sitemap.xml\n`));
@@ -31,7 +31,7 @@ export async function serveClient(app: FastifyInstance, ctx: Ctx): Promise<void>
     const indexable = INDEXABLE.has(path);
     let html = base;
     if (indexable && render) html = html.replace('<!--ssr-outlet-->', render(path));
-    else html = html.replace('<meta name="robots" content="index,follow">', '<meta name="robots" content="noindex,nofollow">');
+    else html = html.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex,nofollow" />');
     return reply.header('X-Robots-Tag', indexable ? 'index, follow' : 'noindex, nofollow').header('Cache-Control', 'no-cache').type('text/html').send(html);
   });
 }

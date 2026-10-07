@@ -26,6 +26,7 @@ export function publicRoutes(app: FastifyInstance, ctx: Ctx, limits: RateLimits)
   const perMinute = (max: number) => ({ config: { rateLimit: { max, timeWindow: '1 minute' } } });
 
   app.get('/api/health', async () => ({ ok: true }));
+  app.get('/api/public-config', async () => ({ supportEmail: ctx.env.SUPPORT_EMAIL || null }));
 
   // ── Funnel events from the public site (anonymous; allow-listed) ──
   app.post('/api/events', perMinute(limits.events), async (req, reply) => {
@@ -42,9 +43,11 @@ export function publicRoutes(app: FastifyInstance, ctx: Ctx, limits: RateLimits)
   app.post('/api/assessments', hourly(limits.create), async (req, reply) => {
     const b = parse(z.object({
       visitorId: z.string().max(64).optional(), landingUrl: z.string().max(500).optional(), referrer: z.string().max(300).optional(),
-      firstTouch: touch, latestTouch: touch,
+      firstTouch: touch, latestTouch: touch, consent: z.literal(true, { error: 'Consent to the privacy notice is required.' }),
     }), req.body ?? {});
-    const out = await createAssessment(ctx, { ...b, userAgent: req.headers['user-agent'] });
+    const { consent: _consent, ...rest } = b;
+    void _consent;
+    const out = await createAssessment(ctx, { ...rest, userAgent: req.headers['user-agent'] });
     return reply.code(201).send({ id: out.publicId, token: out.token });
   });
 
@@ -119,10 +122,9 @@ export function publicRoutes(app: FastifyInstance, ctx: Ctx, limits: RateLimits)
   app.post<{ Params: { id: string } }>('/api/assessments/:id/consultation', scoped, async (req) => {
     const a = req.assessment!;
     if (!isLocked(a)) throw new HttpError(409, 'Complete the assessment before booking a consultation.', 'incomplete');
-    const b = parse(z.object({ action: z.enum(['click', 'booked']).default('click') }), req.body ?? {});
+    // "Booked" is only ever set by the booking provider's webhook or by an admin — never self-reported by the browser.
     const bookingUrl = await recordClick(ctx, a);
-    if (b.action === 'booked') await recordBooked(ctx, a.id, { source: 'self_reported' });
-    return { bookingUrl, consultationStatus: b.action === 'booked' ? 'booked' : a.consultation_status === 'booked' ? 'booked' : 'clicked' };
+    return { bookingUrl, consultationStatus: a.consultation_status === 'booked' ? 'booked' : 'clicked' };
   });
 
   // ── Booking confirmation webhook (HMAC-signed) ──

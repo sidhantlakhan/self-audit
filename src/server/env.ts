@@ -13,6 +13,7 @@ const Schema = z.object({
   AI_API_KEY: z.string().default(''),
   AI_MODEL: z.string().default('claude-sonnet-5-5'),
   AI_TIMEOUT_MS: z.coerce.number().int().default(60000),
+  SUPPORT_EMAIL: z.string().default(''),
   BOOKING_URL: z.string().default('https://example.com/book-consultation'),
   EMAIL_PROVIDER: z.enum(['console', 'resend', 'none']).default('console'),
   EMAIL_API_KEY: z.string().default(''),
